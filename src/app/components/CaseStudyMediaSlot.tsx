@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 /** Renders image from public path; no fill on load error. */
@@ -19,7 +19,7 @@ export function CaseStudyMediaSlot({
     return <div className={className} />;
   }
   return (
-    <div className={`relative overflow-hidden select-none ${className}`} style={{ userSelect: "none", WebkitUserDrag: "none" }}>
+    <div className={`relative overflow-hidden select-none ${className}`} style={{ userSelect: "none", WebkitUserDrag: "none" } as React.CSSProperties}>
       <Image
         src={src}
         alt=""
