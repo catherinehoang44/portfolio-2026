@@ -154,7 +154,7 @@ function ContextSection() {
                 pointerEvents: contextFocus >= 3 ? "auto" : "none",
               }}
             >
-              <TestimonialCard motionStep={contextFocus >= 3 ? contextFocus : 3} style={{ width: "100%", height: "100%", maxWidth: "513.5px" }} />
+              <TestimonialCard motionStep={contextFocus === 3 || contextFocus === 4 ? contextFocus : 3} style={{ width: "100%", height: "100%", maxWidth: "513.5px" }} />
             </div>
           </div>
         </div>
