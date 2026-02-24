@@ -96,7 +96,7 @@ function DiaBrowserTop({
           <div style={{ transform: "rotate(-13.15deg)" }}>
             <div className="relative" style={{ width: 411.57, height: 144.682 }}>
               <div className="absolute" style={{ inset: "0.39% 0 0.5% 2.62%" }}>
-                <img alt="" className="block max-w-none size-full" draggable={false} src="/images/dia/shadow.svg" draggable={false} />
+                <img alt="" className="block max-w-none size-full" draggable={false} src="/images/dia/shadow.svg" />
               </div>
             </div>
           </div>
