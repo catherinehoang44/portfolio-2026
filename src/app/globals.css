@@ -1,26 +1,205 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ========== Design system tokens (template for all pages) ========== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Font families */
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-ibm-plex-mono);
+  --font-display: var(--font-inter);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Typography — font sizes (px) */
+  --text-heading: 40px;
+  --text-body: 16px;
+  --text-nav: 16px;
+  --text-link: 16px;
+  --text-label: 12px;
+  --text-badge: 8px;
+
+  /* Line heights */
+  --leading-heading: 1.2;
+  --leading-body: 1.5;
+
+  /* Colors */
+  --color-bg: #fafafa;
+  --color-text: #18181b;
+  --color-text-muted: #a1a1aa;
+  --color-text-muted-strong: #71717a;
+  --color-nav: #52525b;
+  --color-nav-hover: #18181b;
+  --color-accent: #3b82f6;
+  --color-accent-bar-active: #3b82f6;
+  --color-accent-bar-inactive: #e4e4e7;
+  --color-measure: #a1a1aa;
+  --color-border: #e4e4e7;
+
+  /* Measure strip (left-edge guides) */
+  --measure-label-width: 12px;
+  --measure-arrow-width: 4px;
+  --measure-strip-width: 16px;
+  --measure-arrow-head-height: 3px;
+  --measure-line-width: 0.5px;
+
+  /* Layout — main container */
+  --container-max-width: 1152px;
+  --container-width: 90%;
+  --container-padding-x: 16px;
+  --container-padding-x-md: 32px;
+  --container-padding-x-lg: 64px;
+  --container-gap: 16px;
+  --content-offset-left: 27px;
+
+  /* Section spacing */
+  --section-gap: 96px;
+  --header-nav-gap-mobile: 24px;
+  --header-nav-gap-desktop: 16px;
+
+  /* Case media */
+  --case-media-desktop-height: 720px;
+  --case-media-mobile-height: 420px;
+  --case-media-max-width: 420px;
+
+  /* Case study: default body text (must match CASE_BODY_FONT_SIZE_PX in design-tokens.ts) */
+  --text-case-body: 15px;
+  /* Case study: scope value/tag (must match SCOPE_VALUE_FONT_SIZE_PX in design-tokens.ts) */
+  --text-case-scope-value: 15px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: var(--text-body);
+}
+
+/* Prevent dragging photos and videos site-wide */
+img,
+video {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+/* Typography utilities (use on any page) */
+.font-display {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+}
+
+.text-heading {
+  font-size: var(--text-heading);
+  line-height: var(--leading-heading);
+}
+
+.text-body,
+.text-nav,
+.text-link {
+  font-size: var(--text-body);
+}
+
+/** Case study default text: 16px body copy (paragraphs, list items). */
+.text-case-body {
+  font-size: var(--text-case-body);
+}
+
+/** Case study scope value/tag: 15px (e.g. "2 weeks", "Solo project"). Inter Regular like case body. */
+.text-case-scope-value {
+  font-size: var(--text-case-scope-value);
+}
+
+.text-label {
+  font-size: var(--text-label);
+}
+
+.text-badge {
+  font-size: var(--text-badge);
+}
+
+/* Main container: width, max-width, and responsive horizontal padding */
+.container-main {
+  width: var(--container-width);
+  max-width: var(--container-max-width);
+  padding-left: var(--container-padding-x);
+  padding-right: var(--container-padding-x);
+}
+@media (min-width: 768px) {
+  .container-main {
+    padding-left: var(--container-padding-x-md);
+    padding-right: var(--container-padding-x-md);
+  }
+}
+@media (min-width: 1024px) {
+  .container-main {
+    padding-left: var(--container-padding-x-lg);
+    padding-right: var(--container-padding-x-lg);
+  }
+}
+
+/* Header inner: gap between heading and nav — 48px mobile, 16px desktop */
+.header-inner {
+  margin-left: var(--content-offset-left);
+  gap: var(--header-nav-gap-mobile);
+}
+@media (min-width: 1024px) {
+  .header-inner {
+    gap: var(--header-nav-gap-desktop);
+  }
+}
+
+@keyframes cardFloat {
+  0%, 100% {
+    transform: translateX(-50%) translateY(-50%);
+  }
+  50% {
+    transform: translateX(-50%) translateY(calc(-50% - 12px));
+  }
+}
+
+/* Case title: gradient background — enter = slide + fade, leave = fade only */
+.case-title-bg {
+  transform-origin: left;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 0.35s ease-out, transform 0s;
+}
+.case-title-bg.case-title-bg--visible {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+}
+.case-title-bg:not(.case-title-bg--visible) {
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 0.35s ease-out, transform 0s;
+}
+
+/* Case study CTA: hover fill — same slide + fade as case title (design system) */
+.case-cta-btn {
+  position: relative;
+  overflow: hidden;
+}
+.case-cta-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #DBEAFE;
+  transform-origin: left;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+.case-cta-btn:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+/* Case media: 4px corner radius (design system — all case media containers) */
+.case-media {
+  border-radius: 4px;
+}
+/* Case media: clickable when it contains video/img/iframe (fullscreen on click) */
+.case-media:has(video),
+.case-media:has(iframe),
+.case-media:has(img[src]:not([src$=".svg"])) {
+  cursor: pointer;
 }
