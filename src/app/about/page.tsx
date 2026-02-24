@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { MeasureGuide } from "@/app/components/MeasureGuide";
+import { LiveClock } from "@/app/components/CardStack";
 import {
   CONTENT_OFFSET_LEFT_PX,
   CONTAINER_GAP_PX,
@@ -41,7 +42,7 @@ export default function AboutPage() {
                 className="font-medium text-body"
                 style={{ color: COLORS.textMutedStrong }}
               >
-                About
+                <LiveClock />
               </p>
               <h1
                 className="font-display text-heading flex flex-col items-start gap-0"

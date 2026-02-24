@@ -122,7 +122,7 @@ export function Highlight({ className, style, iconSrc, title = "", iconLeftLayou
               flex: 1,
               minWidth: 0,
               margin: 0,
-              color: "rgba(140, 140, 140, 1)",
+              color: "#131313",
               fontSize: CASE_BODY_FONT_SIZE_PX,
               fontFamily: '"Neue Montreal", sans-serif',
               fontWeight: 400,
@@ -171,7 +171,7 @@ export function Highlight({ className, style, iconSrc, title = "", iconLeftLayou
             <h1
               style={{
                 margin: 0,
-                color: "rgba(140, 140, 140, 1)",
+                color: "#131313",
                 fontSize: "16px",
                 fontFamily: '"Neue Montreal", sans-serif',
                 fontWeight: 500,
@@ -187,7 +187,7 @@ export function Highlight({ className, style, iconSrc, title = "", iconLeftLayou
         <div
           style={{
             margin: 0,
-            color: "rgba(140, 140, 140, 1)",
+            color: "#131313",
             fontSize: CASE_BODY_FONT_SIZE_PX,
             fontFamily: '"Neue Montreal", sans-serif',
             fontWeight: 400,
