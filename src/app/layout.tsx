@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { MediaFullscreenProvider } from "./components/MediaFullscreenProvider";
 
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${ibmPlexMono.variable} antialiased`}>
         <MediaFullscreenProvider>{children}</MediaFullscreenProvider>
+        <Analytics />
       </body>
     </html>
   );
