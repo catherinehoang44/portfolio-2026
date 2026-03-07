@@ -131,7 +131,7 @@ export default function Home() {
                 Curius
               </a>
               <a
-                href="/Design Resume.pdf"
+                href="/design-resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-nav capitalize transition-colors hover:opacity-80"
