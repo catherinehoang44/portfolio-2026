@@ -121,13 +121,6 @@ export default function Home() {
               className="relative z-10 flex flex-col items-start lg:items-end shrink-0"
               style={{ gap: 16 }}
             >
-              <Link
-                href="/about"
-                className="font-medium text-nav capitalize transition-colors hover:opacity-80"
-                style={{ color: COLORS.nav }}
-              >
-                About
-              </Link>
               <a
                 href="https://curius.app/catherine-hoang"
                 target="_blank"
@@ -136,6 +129,15 @@ export default function Home() {
                 style={{ color: COLORS.nav }}
               >
                 Curius
+              </a>
+              <a
+                href="/Design Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-nav capitalize transition-colors hover:opacity-80"
+                style={{ color: COLORS.nav }}
+              >
+                Resume
               </a>
               <a
                 href="mailto:catherinehoang44@gmail.com"
