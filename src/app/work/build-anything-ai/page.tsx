@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { MeasureGuide } from "@/app/components/MeasureGuide";
 import { LinkToSiteButton } from "@/app/components/LinkToSiteButton";
 import { ScopeDetails } from "@/app/components/ScopeDetails";
@@ -17,6 +18,7 @@ import {
 } from "@/lib/design-tokens";
 import { CaseStudyCaption } from "@/app/components/CaseStudyCaption";
 import { CaseStudyMediaSlot } from "@/app/components/CaseStudyMediaSlot";
+import { useRotatingTypewriter } from "@/app/hooks/useTypewriter";
 
 const BUILD_ANYTHING_MEDIA_BASE = "/work/build-anything-ai";
 const BUILD_ANYTHING_IMAGES = {
@@ -31,9 +33,9 @@ const BUILD_ANYTHING_IMAGES = {
 } as const;
 
 const BUILD_ANYTHING_SCOPE_ITEMS = [
-  { label: "Timeline", value: "1 day" },
+  { label: "Timeline", value: "4 hours" },
   { label: "Team", value: "Solo → Personal project" },
-  { label: "Skills", value: "Vibe-coded product design" },
+  { label: "Skills", value: "Cursor (vibe-code), Paper, Claude" },
 ];
 
 /** Full-width single media (e.g. Focus 1, Focus 2, Final project design) */
@@ -41,7 +43,15 @@ const ASPECT_BIG = "1083/420";
 /** Side-by-side media (After: Project Dashboard, After: Editing Project) */
 const ASPECT_SIDE = "508/420";
 
+const ROTATING_WORDS = ["anything", "dashboards", "apps", "websites", "games"];
+
 export default function BuildAnythingAIPage() {
+  const [hovering, setHovering] = useState(false);
+  const displayWord = useRotatingTypewriter(ROTATING_WORDS, {
+    hoverWord: "anything",
+    paused: hovering,
+  });
+
   return (
     <div
       className="flex flex-col items-center"
@@ -106,7 +116,7 @@ export default function BuildAnythingAIPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* First section (Figma 126-1913): Reducing clicks to reduce drop-off */}
+        {/* First section (Figma 126-1913): Anyone can build [rotating word] */}
         <section className="relative overflow-visible w-full">
           <div className="absolute inset-0">
             <MeasureGuide label="DIV" className="h-full" />
@@ -119,7 +129,15 @@ export default function BuildAnythingAIPage() {
               className="font-sans font-light w-full max-w-full"
               style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}
             >
-              Reducing clicks to reduce drop-off
+              Anyone can build{" "}
+              <span
+                onMouseEnter={() => setHovering(true)}
+                onMouseLeave={() => setHovering(false)}
+                className="inline-block min-w-[7ch]"
+                style={{ textDecoration: "underline", textDecorationStyle: "dotted", cursor: "default" }}
+              >
+                {displayWord}
+              </span>
             </h2>
             <p
               className="font-mono w-full max-w-full mt-4"
@@ -151,11 +169,11 @@ export default function BuildAnythingAIPage() {
               className="list-decimal list-inside text-case-body w-full max-w-full mt-2 flex flex-col"
               style={{ color: COLORS.textMutedStrong, lineHeight: 1.6, gap: 12 }}
             >
-              <li>Prioritize output over input. The result is the product</li>
-              <li>Design for non-technical users using sliders, presets, and visual controls</li>
-              <li>Clarify integrations with goal-based recommendations to reduce cognitive load</li>
-              <li>Remove early friction. No ratings or interruptions before value is felt</li>
-              <li>Align CTAs with user readiness, especially publishing actions</li>
+              <li>Prioritize output over input (i.e. reducing clicks to get to output to reduce drop-off). The result is the product.</li>
+              <li>Design for non-technical users using sliders, presets, and visual controls.</li>
+              <li>Clarify integrations with goal-based recommendations to reduce cognitive load.</li>
+              <li>Remove early friction. No ratings or interruptions before value is felt.</li>
+              <li>Align CTAs with user readiness, especially publishing actions.</li>
             </ol>
           </div>
         </section>
