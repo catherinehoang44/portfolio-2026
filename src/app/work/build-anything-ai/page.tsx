@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { MeasureGuide } from "@/app/components/MeasureGuide";
-import { LinkToSiteButton } from "@/app/components/LinkToSiteButton";
 import { ScopeDetails } from "@/app/components/ScopeDetails";
 import {
   CONTAINER_GAP_PX,
@@ -95,7 +94,6 @@ export default function BuildAnythingAIPage() {
                 >
                   Build Anything desktop
                 </h1>
-                <LinkToSiteButton href="#final-design" iconVariant="jumpToDesigns">Jump to designs</LinkToSiteButton>
               </div>
               <div className="flex flex-1 min-w-[320px]">
                 <ScopeDetails
