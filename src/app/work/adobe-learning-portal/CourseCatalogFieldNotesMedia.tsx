@@ -7,7 +7,6 @@ const FIELD_NOTE_HEADINGS = [
   "Business Goals",
   "User Considerations",
   "Developer Bandwidth",
-  "Long-term Planning",
 ] as const;
 
 function parseFieldNoteSections(note: string) {

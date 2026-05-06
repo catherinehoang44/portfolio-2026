@@ -61,9 +61,9 @@ const COURSE_CATALOG_TEXTS: string[] = [
   "Live A/B testing needed for future iterations",
 ];
 const COURSE_CATALOG_FIELD_NOTES: string[] = [
-  "Business Goals: Goal to increase course to certification funnel means instead of a \"New\" tag to increase course engagement, course recommendations based on product interest or previous engagement with Adobe courses would be more effective. User Considerations: Research showed early navigation confusion, so we reduced choice density to focus on product interest. Developer Bandwidth: If course recommendations appear based on prior engagements, we would need to outline what specific engagement metrics would influence top options. Long-term Planning: The structure was designed to scale across additional Adobe DX product tracks and certification levels.",
-  "Business Goals: Saved Courses is valuable for enterprise customers. Forcing Saved Course access to course catalog increased other course interest. User Considerations: Progress signals increased motivation and general mood. Developer Bandwidth: What tags are attached to each course card? What can be searched? This will need to be considered in course backend. Long-term Planning: These patterns establish a reusable framework for future engagement features in the certification experience.",
-  "Business Goals: Focus on product-related search for enterprise partners. Job-role related search is for individual learners. User Considerations: Still need to consider how showing or hiding progress bars for unstarted courses will impact course start metrics. Developer Bandwidth: Search only applies to tags and title for now. Complex dynamic search will be in future iteration. Long-term Planning: The final model supports future expansion into product-team recommendations, community signals, and adaptive guidance.",
+  "Business Goals: Goal to increase course to certification funnel means instead of a \"New\" tag to increase course engagement, course recommendations based on product interest or previous engagement with Adobe courses would be more effective. User Considerations: Research showed early navigation confusion, so we reduced choice density to focus on product interest. Developer Bandwidth: If course recommendations appear based on prior engagements, we would need to outline what specific engagement metrics would influence top options.",
+  "Business Goals: Saved Courses is valuable for enterprise customers. Forcing Saved Course access to course catalog increased other course interest. User Considerations: Progress signals increased motivation and general mood. Developer Bandwidth: What tags are attached to each course card? What can be searched? This will need to be considered in course backend.",
+  "Business Goals: Focus on product-related search for enterprise partners. Job-role related search is for individual learners. User Considerations: Still need to consider how showing or hiding progress bars for unstarted courses will impact course start metrics. Developer Bandwidth: Search only applies to tags and title for now. Complex dynamic search will be in future iteration.",
 ];
 const COURSE_CATALOG_IMAGE_SRCS = [
   `${ADOBE_MEDIA_BASE}/course-catalog-1.png`,
@@ -98,12 +98,7 @@ const ADOBE_LMS_SCREENSHOTS: AdobeImage[] = [
 ];
 
 const ADOBE_FINAL_DESIGN_MEDIA: AdobeFinalDesignMedia[] = [
-  {
-    media: "image",
-    image: { src: `${ADOBE_MEDIA_BASE}/adobe-home.png`, width: 400, height: 1024 },
-    caption: "Certification portal home",
-    tag: "Image",
-  },
+  { media: "video", src: `${ADOBE_MEDIA_BASE}/adobe-home.mp4`, caption: "Certification portal home" },
   { media: "video", src: `${ADOBE_MEDIA_BASE}/adobe-profile.mp4`, caption: "User profile" },
   {
     media: "image",
@@ -596,7 +591,7 @@ export default function AdobeLearningPortalPage() {
                     objectFit="contain"
                   />
                 </div>
-                <CaseStudyCaption description="Design process timeline" tag="Image" />
+                <CaseStudyCaption description="Design sprints timeline" tag="Image" />
               </div>
             </div>
           </div>
