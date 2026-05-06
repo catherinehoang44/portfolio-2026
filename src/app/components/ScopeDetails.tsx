@@ -103,16 +103,25 @@ export function ScopeDetails({
                     </>
                   ) : null}
                 </span>
-                {hasMore && expanded ? (
-                  <ul
-                    id={listId}
-                    className="mt-2 list-disc pl-5 flex flex-col gap-1"
-                    style={{ color: COLORS.textMutedStrong }}
+                {hasMore ? (
+                  <div
+                    className="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none"
+                    style={{ gridTemplateRows: expanded ? "1fr" : "0fr" }}
                   >
-                    {moreItems!.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+                    <div className="min-h-0 overflow-hidden">
+                      <ul
+                        id={listId}
+                        role="list"
+                        aria-hidden={!expanded}
+                        className="mt-2 list-disc pl-5 flex flex-col gap-1"
+                        style={{ color: COLORS.textMutedStrong }}
+                      >
+                        {moreItems!.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 ) : null}
               </dd>
             </div>

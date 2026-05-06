@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { MeasureGuide } from "@/app/components/MeasureGuide";
 import { LinkToSiteButton } from "@/app/components/LinkToSiteButton";
@@ -26,6 +25,8 @@ import {
   CASE_MEDIA_PLACEHOLDER_FILL,
   CASE_MEDIA_ALIGN_WITH_TEXT_PADDING,
   SCOPE_HEADING_FONT_SIZE_PX,
+  cssRasterWidthCap,
+  cssFinalDesignRasterWidth,
 } from "@/lib/design-tokens";
 
 const ADOBE_MEDIA_BASE = "/work/adobe-learning-portal";
@@ -71,7 +72,7 @@ const COURSE_CATALOG_IMAGE_SRCS = [
 ];
 
 /** Final Designs: home PNG uses same grey 1920/1080 shell + 80%×80% inner as videos; LMS = stacked screenshots in grey; rest 16:9 video. */
-/** Screenshots ship intrinsic width/height so Next/Image can resample with Sharp at the right device pixel ratio (no upscale blur from raw <img>). */
+/** Intrinsic dimensions for layout + sharp browser scaling (PNG served as-is from /public — no optimizer re-encode). */
 type AdobeImage = { src: string; width: number; height: number };
 type AdobeFinalDesignMedia =
   | {
@@ -89,9 +90,9 @@ type AdobeFinalDesignMedia =
   | { media: "video"; src: string; caption: string; tag?: "Video" | "Image" };
 
 const ADOBE_LMS_SCREENSHOTS: AdobeImage[] = [
-  { src: `${ADOBE_MEDIA_BASE}/lms-1.png`, width: 1024, height: 588 },
-  { src: `${ADOBE_MEDIA_BASE}/lms-2.png`, width: 1024, height: 588 },
   { src: `${ADOBE_MEDIA_BASE}/lms-3.png`, width: 1024, height: 588 },
+  { src: `${ADOBE_MEDIA_BASE}/lms-2.png`, width: 1024, height: 588 },
+  { src: `${ADOBE_MEDIA_BASE}/lms-1.png`, width: 1024, height: 588 },
   { src: `${ADOBE_MEDIA_BASE}/lms-4.png`, width: 1024, height: 588 },
   { src: `${ADOBE_MEDIA_BASE}/lms-5.png`, width: 1024, height: 590 },
 ];
@@ -117,9 +118,6 @@ const ADOBE_FINAL_DESIGN_MEDIA: AdobeFinalDesignMedia[] = [
     tag: "Images",
   },
 ];
-
-/** Sharp-rendered px column for the Final Designs media (80% of container, capped at typical reading widths). */
-const FINAL_DESIGN_IMAGE_SIZES = "(min-width: 1280px) 1024px, (min-width: 768px) 80vw, 90vw";
 
 function ContextSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -417,15 +415,27 @@ export default function AdobeLearningPortalPage() {
               </div>
             </div>
             <div className="flex flex-col w-full" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
+              {/*
+                Native <img> (not absolute + object-fit) avoids extra resampling. Cap width at file px; asset 1024×355 — use 2× exports for Retina.
+              */}
               <div
-                className="case-media relative w-full overflow-hidden"
+                className="case-media relative w-full overflow-hidden mx-auto"
                 data-media-fullscreen-disabled
-                style={{ aspectRatio: "1024/302", minHeight: 200, background: "#FFFFFF" }}
+                style={{
+                  background: "#FFFFFF",
+                  maxWidth: cssRasterWidthCap(1024),
+                }}
               >
-                <CaseStudyMediaSlot
+                <img
                   src="/work/adobe-learning-portal-roadrunner-v/my-role.png"
-                  className="absolute inset-0 h-full w-full overflow-hidden rounded-[4px]"
-                  objectFit="contain"
+                  alt=""
+                  width={1024}
+                  height={355}
+                  draggable={false}
+                  className="block h-auto w-full max-w-full select-none"
+                  style={{ borderRadius: 4 }}
+                  decoding="async"
+                  fetchPriority="high"
                 />
               </div>
               <CaseStudyCaption
@@ -579,9 +589,14 @@ export default function AdobeLearningPortalPage() {
             <div className="w-full flex flex-col" style={{ gap: MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
               <div className="w-full flex flex-col" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX }}>
                 <div
-                  className="case-media relative w-full overflow-hidden"
+                  className="case-media relative w-full overflow-hidden mx-auto"
                   data-media-fullscreen-disabled
-                  style={{ aspectRatio: "1024/302", minHeight: 200, background: "#FFFFFF" }}
+                  style={{
+                    aspectRatio: "1384/512",
+                    minHeight: 200,
+                    background: "#FFFFFF",
+                    maxWidth: cssRasterWidthCap(1384),
+                  }}
                 >
                   <CaseStudyMediaSlot
                     src={`${ADOBE_MEDIA_BASE}/timeline.png`}
@@ -827,8 +842,12 @@ export default function AdobeLearningPortalPage() {
               <div>
                 <div className="w-full flex flex-col" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX }}>
                   <div
-                    className="case-media relative w-full overflow-hidden"
-                    style={{ aspectRatio: "2166/840", background: CASE_MEDIA_PLACEHOLDER_FILL }}
+                    className="case-media relative w-full overflow-hidden mx-auto"
+                    style={{
+                      aspectRatio: "2166/840",
+                      background: CASE_MEDIA_PLACEHOLDER_FILL,
+                      maxWidth: cssRasterWidthCap(2166),
+                    }}
                   >
                     <CaseStudyMediaSlot
                       src={`${ADOBE_MEDIA_BASE}/positive-comments.png`}
@@ -884,7 +903,7 @@ export default function AdobeLearningPortalPage() {
                 }}
                 style={{ width: "100%", maxWidth: "100%" }}
               >
-                We received funding and resources to bring the project into existence. Since launch, we&apos;ve achieved over a million MoM learners on the platform, 500% of our target amount.
+                We received funding and resources to bring the project into existence. Since launch, we&apos;ve achieved over a million MoM learners on the platform, and 15%+ increase in certification renewal rate.
               </Highlight>
             </div>
             <div className="w-full flex flex-col" style={{ gap: MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
@@ -922,19 +941,22 @@ export default function AdobeLearningPortalPage() {
                       style={{ background: "#EEEEEE", paddingTop: 24, paddingBottom: 24 }}
                     >
                       <div
-                        className="case-media relative overflow-hidden"
-                        style={{ width: FINAL_DESIGN_MEDIA_INNER_WIDTH, borderRadius: 8 }}
+                        className="case-media relative overflow-hidden mx-auto"
+                        style={{
+                          width: cssFinalDesignRasterWidth(item.image.width),
+                          borderRadius: 8,
+                        }}
                       >
-                        <Image
+                        <img
                           src={item.image.src}
                           alt=""
                           width={item.image.width}
                           height={item.image.height}
-                          quality={100}
-                          sizes={FINAL_DESIGN_IMAGE_SIZES}
                           draggable={false}
-                          className="block h-auto w-full select-none"
-                          style={{ borderRadius: 4, imageRendering: "auto" }}
+                          className="block h-auto w-full max-w-full select-none"
+                          style={{ borderRadius: 4 }}
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -943,23 +965,29 @@ export default function AdobeLearningPortalPage() {
                       className="relative w-full overflow-hidden flex flex-col items-center"
                       style={{ background: "#EEEEEE", paddingTop: 24, paddingBottom: 24 }}
                     >
-                      <div className="flex flex-col" style={{ width: FINAL_DESIGN_MEDIA_INNER_WIDTH, gap: MEDIA_GAP_PX }}>
+                      <div
+                        className="mx-auto flex flex-col"
+                        style={{
+                          width: cssFinalDesignRasterWidth(1024),
+                          gap: MEDIA_GAP_PX,
+                        }}
+                      >
                         {item.images.map((img) => (
                           <div
                             key={img.src}
                             className="case-media relative w-full overflow-hidden"
                             style={{ borderRadius: 4 }}
                           >
-                            <Image
+                            <img
                               src={img.src}
                               alt=""
                               width={img.width}
                               height={img.height}
-                              quality={100}
-                              sizes={FINAL_DESIGN_IMAGE_SIZES}
                               draggable={false}
-                              className="block h-auto w-full select-none"
-                              style={{ borderRadius: 4, imageRendering: "auto" }}
+                              className="block h-auto w-full max-w-full select-none"
+                              style={{ borderRadius: 4 }}
+                              loading="lazy"
+                              decoding="async"
                             />
                           </div>
                         ))}

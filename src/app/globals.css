@@ -216,6 +216,7 @@ video {
 .case-media {
   border-radius: 4px;
 }
+
 /* Case media: clickable when it contains video/img/iframe (fullscreen on click) */
 .case-media:not([data-media-fullscreen-disabled]):has(video),
 .case-media:not([data-media-fullscreen-disabled]):has(iframe),

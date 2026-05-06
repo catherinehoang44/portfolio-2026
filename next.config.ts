@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
-    qualities: [75, 100],
-  },
+  /* Case study PNGs use <img> / unoptimized paths so files are not re-encoded as WebP. */
 };
 
 export default nextConfig;

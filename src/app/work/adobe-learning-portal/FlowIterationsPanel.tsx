@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { CaseStudyMediaSlot } from "@/app/components/CaseStudyMediaSlot";
-import { COLORS } from "@/lib/design-tokens";
+import { COLORS, cssRasterWidthCap } from "@/lib/design-tokens";
 
 /** Must match exported flow PNGs (both toggles use same dimensions). */
 const FLOW_IMAGE_ASPECT_RATIO = "1024/326";
@@ -195,9 +195,10 @@ export function FlowIterationsPanel({ initialSrc, updatedSrc, descriptionText }:
       </div>
 
       <div
-        className="case-media relative w-full overflow-hidden"
+        className="case-media relative mx-auto w-full overflow-hidden"
         style={{
           aspectRatio: FLOW_IMAGE_ASPECT_RATIO,
+          maxWidth: cssRasterWidthCap(1024),
           background:
             "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%) padding-box, linear-gradient(180deg, rgba(140, 140, 140, 0.32) 0%, rgba(224, 224, 224, 0.5) 100%) border-box",
           borderRadius: "8px",

@@ -153,3 +153,19 @@ export const COLORS = {
   textOnDark: "#fafafa",
   textMutedOnDark: "#a1a1aa",
 } as const;
+
+/**
+ * Cap layout width at the PNG’s native pixel width so the browser does not upscale past 1 bitmap px per layout px on 1× displays (common blur on wide viewports).
+ * On Retina, export 2× assets (e.g. 2048px wide for a ~1024px-wide slot) for sharp UI type.
+ */
+export function cssRasterWidthCap(nativeWidthPx: number): string {
+  return `min(100%, ${nativeWidthPx}px)`;
+}
+
+/** Final Designs inner column: never wider than the file itself or the design % column. */
+export function cssFinalDesignRasterWidth(
+  nativeWidthPx: number,
+  columnPercent: string = "80%",
+): string {
+  return `min(${columnPercent}, ${nativeWidthPx}px)`;
+}

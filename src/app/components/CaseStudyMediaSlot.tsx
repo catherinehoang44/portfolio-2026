@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 
-/** Renders image from public path; no fill on load error. */
+/** Renders image from public path; no fill on load error. Served as-is (no Next image optimizer — keeps PNG/UI screenshots sharp). */
 export function CaseStudyMediaSlot({
   src,
   className = "",
@@ -19,15 +18,18 @@ export function CaseStudyMediaSlot({
     return <div className={className} />;
   }
   return (
-    <div className={`relative overflow-hidden select-none ${className}`} style={{ userSelect: "none", WebkitUserDrag: "none" } as React.CSSProperties}>
-      <Image
+    <div
+      className={`relative overflow-hidden select-none ${className}`}
+      style={{ userSelect: "none", WebkitUserDrag: "none" } as React.CSSProperties}
+    >
+      <img
         src={src}
         alt=""
-        fill
-        className={`pointer-events-none rounded-[4px] ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
-        unoptimized
+        className={`pointer-events-none absolute inset-0 h-full w-full rounded-[4px] ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
         onError={() => setFailed(true)}
         draggable={false}
+        loading="lazy"
+        decoding="async"
       />
     </div>
   );

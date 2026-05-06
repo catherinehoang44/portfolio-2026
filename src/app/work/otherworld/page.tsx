@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { MeasureGuide } from "@/app/components/MeasureGuide";
 import { LinkToSiteButton } from "@/app/components/LinkToSiteButton";
 import { ScopeDetails } from "@/app/components/ScopeDetails";
@@ -59,13 +58,14 @@ function CaseStudyMediaSlot({
   }
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <Image
+      <img
         src={src}
         alt=""
-        fill
-        className="object-cover"
-        unoptimized
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         onError={() => setFailed(true)}
+        draggable={false}
+        loading="lazy"
+        decoding="async"
       />
     </div>
   );
