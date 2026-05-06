@@ -425,7 +425,7 @@ export default function AdobeLearningPortalPage() {
                   src="/work/adobe-learning-portal-roadrunner-v/my-role.png"
                   alt=""
                   width={1024}
-                  height={355}
+                  height={302}
                   draggable={false}
                   className="block h-auto w-full max-w-full select-none"
                   style={{ borderRadius: 4 }}
