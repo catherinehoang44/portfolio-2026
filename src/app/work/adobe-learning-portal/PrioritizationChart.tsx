@@ -189,11 +189,13 @@ export const PrioritizationChart: React.FC<RadioButtonIndicatorProps> = ({
         }}
       >
         <p
-          className="text-case-body"
           style={{
             margin: 0,
             color: COLORS.textMutedStrong,
-            lineHeight: 1.6,
+            fontSize: "13px",
+            fontFamily: '"Neue Montreal", sans-serif',
+            fontWeight: 400,
+            lineHeight: "19.2px",
             flex: 1,
           }}
         >
@@ -215,11 +217,11 @@ export const PrioritizationChart: React.FC<RadioButtonIndicatorProps> = ({
             paddingBottom: 0,
             paddingLeft: 0,
             paddingRight: 0,
-            width: "152px",
-            height: "42px",
+            width: "146px",
+            height: "35px",
             background:
-              "linear-gradient(180deg, rgba(153, 153, 153, 0.42) 0%, rgba(255, 255, 255, 1.00) 100%)",
-            border: "1px solid #E0E0E0",
+              "linear-gradient(180deg, rgba(230, 230, 230, 0.85) 0%, rgba(255, 255, 255, 1.00) 75%) padding-box, linear-gradient(180deg, rgba(140, 140, 140, 0.64) 0%, rgba(224, 224, 224, 1.00) 100%) border-box",
+            border: "1px solid transparent",
             boxSizing: "border-box",
             boxShadow: "0px 4px 24px rgba(0, 0, 0, 0.04)",
             borderRadius: "8px",
@@ -244,15 +246,15 @@ export const PrioritizationChart: React.FC<RadioButtonIndicatorProps> = ({
               width: "100%",
               height: "100%",
               boxSizing: "border-box",
-              paddingLeft: showPriorities ? 0 : 42,
-              paddingRight: showPriorities ? 42 : 0,
+              paddingLeft: showPriorities ? 0 : 36,
+              paddingRight: showPriorities ? 36 : 0,
               textAlign: "center",
               transition: "padding-left 0.25s ease, padding-right 0.25s ease",
-              color: "rgba(140, 140, 140, 1)",
+              color: "#8C8C8C",
               fontSize: "13px",
               fontFamily: '"Neue Montreal", sans-serif',
               fontWeight: 400,
-              lineHeight: "42px",
+              lineHeight: "34px",
             }}
           >
             {showPriorities ? "Hide Priorities" : "Show Priorities"}
@@ -262,9 +264,9 @@ export const PrioritizationChart: React.FC<RadioButtonIndicatorProps> = ({
             style={{
               position: "absolute",
               top: 0,
-              left: showPriorities ? "calc(100% - 42px)" : 0,
-              width: "42px",
-              height: "42px",
+              left: showPriorities ? "calc(100% - 34px)" : 0,
+              width: "34px",
+              height: "34px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -278,31 +280,53 @@ export const PrioritizationChart: React.FC<RadioButtonIndicatorProps> = ({
           >
             <div
               style={{
-                width: "28px",
-                height: "27px",
+                width: "22px",
+                height: "21px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 backgroundColor: "#FFFFFF",
-                border: "0.5px solid #F5F5F5",
+              border: "0.5px solid rgba(198, 198, 198, 0.42)",
                 boxSizing: "border-box",
                 boxShadow: "inset 0px 0px 4px rgba(214, 214, 214, 1)",
                 borderRadius: "4px",
               }}
             >
-              <span
+              <div
                 style={{
-                  display: "inline-block",
-                  color: "rgba(164, 164, 164, 1)",
-                  fontSize: "9.6px",
-                  fontFamily: '"Adobe Clean", sans-serif',
-                  marginTop: "-1px",
+                  position: "relative",
+                  width: "10px",
+                  height: "10px",
                   transform: showPriorities ? "rotate(45deg)" : "rotate(0deg)",
                   transition: "transform 0.25s ease",
                 }}
+                aria-hidden
               >
-                +
-              </span>
+                <span
+                  style={{
+                    position: "absolute",
+                    left: "50%",
+                    top: 0,
+                    width: "1px",
+                    height: "10px",
+                    transform: "translateX(-50%)",
+                    backgroundColor: "rgba(164, 164, 164, 1)",
+                    borderRadius: "1px",
+                  }}
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    top: "50%",
+                    width: "10px",
+                    height: "1px",
+                    transform: "translateY(-50%)",
+                    backgroundColor: "rgba(164, 164, 164, 1)",
+                    borderRadius: "1px",
+                  }}
+                />
+              </div>
             </div>
           </div>
         </button>
@@ -566,10 +590,20 @@ export const PrioritizationChart: React.FC<RadioButtonIndicatorProps> = ({
               subtitle="Adobe Internal, Admin Partners"
             />
           </div>
-          {/* Full opacity when toggle enabled: Support and FAQ, Online Courses, Community Forums */}
+          {/* Full opacity when toggle enabled: Support and FAQ, Online Courses */}
           <PlotPoint top={117} left={253} title="Online Courses" isAllUsers />
-          <PlotPoint top={165} left={294} title="Community Forums" isAllUsers />
           <PlotPoint top={83} left={294} title="Support and FAQ" isAllUsers />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              opacity: showPriorities ? 0.36 : 1,
+              transition: "opacity 0.25s ease",
+              pointerEvents: "none",
+            }}
+          >
+            <PlotPoint top={165} left={294} title="Community Forums" isAllUsers />
+          </div>
         </div>
         </div>
       </div>

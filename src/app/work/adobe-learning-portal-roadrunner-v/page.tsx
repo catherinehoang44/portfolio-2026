@@ -29,7 +29,7 @@ import {
 } from "@/lib/design-tokens";
 
 const ADOBE_MEDIA_BASE = "/work/adobe-learning-portal";
-/** Caption–media gap on this page (16px). */
+/** Caption-media gap on this page (16px). */
 const ADOBE_CAPTION_MEDIA_GAP_PX = 16;
 /** Final Designs: inner media column matches former video frame width (80% of section). */
 const FINAL_DESIGN_MEDIA_INNER_WIDTH = "80%";
@@ -41,7 +41,7 @@ const CONTEXT_STEPS = 4;
 const CONTEXT_SLIDES_BOTTOM_SPACE_PX = 24;
 
 const CONTEXT_TEXTS: string[] = [
-  "On any Adobe forum, there was a resounding confusion on what Adobe Digital Experience even offered. The average person was not going to remember all 15 apps. Instead…",
+  "On any Adobe forum, there was a resounding confusion on what Adobe Digital Experience even offered. The average person was not going to remember all 15 apps. Instead...",
   "They'd remember only 1 app at a time.",
   "And when they begun to learn that app, users came across the same set of problems.",
   "There was no central place to learn and actually try it out.",
@@ -195,7 +195,7 @@ function ContextSection() {
             ))}
           </div>
         </div>
-        {/* Right: one media — context 1 & 2 = single DataVisualizationPanel that animates by frame; 3 & 4 = image (514/420 for panel) */}
+        {/* Right: one media - context 1 & 2 = single DataVisualizationPanel that animates by frame; 3 & 4 = image (514/420 for panel) */}
         <div className="flex-1 min-w-[320px] w-full flex flex-col" style={{ ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
           <div
             className="case-media relative w-full overflow-hidden flex items-center justify-center"
@@ -207,7 +207,7 @@ function ContextSection() {
               transition: "background-color 400ms ease",
             }}
           >
-            {/* Context 1 & 2: single panel, frame drives animation (context1 ↔ context2) */}
+            {/* Context 1 & 2: single panel, frame drives animation (context1 <-> context2) */}
             <div
               className="absolute inset-0 flex items-center justify-center"
               style={{
@@ -373,16 +373,16 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* Overview: left = text from Figma 126-2243, right = temporary image + caption */}
+        {/* Overview: vertical stack (text on top, image below) */}
         <section className="relative overflow-visible w-full">
           <div className="absolute inset-0">
             <MeasureGuide label="DIV" className="h-full" />
           </div>
           <div
-            className="flex flex-col py-6 w-full md:flex-row md:items-start md:justify-between gap-6 md:gap-12"
+            className="flex flex-col py-6 w-full gap-6"
             style={{ marginLeft: CONTENT_OFFSET_LEFT_PX }}
           >
-            <div className="flex-1 min-w-[320px] w-full">
+            <div className="w-full">
               <p
                 className="font-medium text-case-body w-full"
                 style={{ color: COLORS.textMutedStrong }}
@@ -416,19 +416,20 @@ export default function AdobeLearningPortalPage() {
                 </p>
               </div>
             </div>
-            <div className="flex-1 min-w-[320px] flex flex-col w-full" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
+            <div className="flex flex-col w-full" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
               <div
                 className="case-media relative w-full overflow-hidden"
-                style={{ aspectRatio: "1024/326", minHeight: 200, background: "#FFFFFF" }}
+                data-media-fullscreen-disabled
+                style={{ aspectRatio: "1024/302", minHeight: 200, background: "#FFFFFF" }}
               >
                 <CaseStudyMediaSlot
-                  src={`${ADOBE_MEDIA_BASE}/scope-diagram.png`}
-                  className="absolute inset-0 h-full w-full rounded-none"
+                  src="/work/adobe-learning-portal-roadrunner-v/my-role.png"
+                  className="absolute inset-0 h-full w-full overflow-hidden rounded-[4px]"
                   objectFit="contain"
                 />
               </div>
               <CaseStudyCaption
-                description="Scope diagram"
+                description="Scope of work"
                 tag="Image"
               />
             </div>
@@ -443,7 +444,7 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* Context: sticky left (text with focus opacity) + sticky right (swapping images); scroll drives contextFocus 1–4 */}
+        {/* Context: sticky left (text with focus opacity) + sticky right (swapping images); scroll drives contextFocus 1-4 */}
         <ContextSection />
 
         {/* GAP */}
@@ -451,7 +452,7 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* Problem: Learning was being gate-kept (Figma 272-2837, 272-2836) — top/bottom */}
+        {/* Problem: Learning was being gate-kept (Figma 272-2837, 272-2836) - top/bottom */}
         <section className="relative overflow-visible w-full">
           <div className="absolute inset-0">
             <MeasureGuide label="DIV" className="h-full" />
@@ -526,7 +527,7 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* Plan: Guiding Principles (Figma 235-2952) — top/bottom */}
+        {/* Plan: Guiding Principles (Figma 235-2952) - top/bottom */}
         <section className="relative overflow-visible w-full">
           <div className="absolute inset-0">
             <MeasureGuide label="DIV" className="h-full" />
@@ -599,7 +600,7 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* Research: 3 images research1–3 (Figma 126-2400) — top/bottom */}
+        {/* Research: 3 images research1-3 (Figma 126-2400) - top/bottom */}
         <section className="relative overflow-visible w-full">
           <div className="absolute inset-0">
             <MeasureGuide label="DIV" className="h-full" />
@@ -628,7 +629,7 @@ export default function AdobeLearningPortalPage() {
                 By conducting a series of research methodologies, the data helped us define what functionality and experiences were necessary and when to implement. While I cannot share specifics due to NDA, I can share the methods used:
               </p>
             </div>
-            {/* Research container: 3 images research1–3, 350×207 aspect ratio */}
+            {/* Research container: 3 images research1-3, 350x207 aspect ratio */}
             <div
               className="w-full flex flex-row gap-4"
               style={{ minWidth: 0, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}
@@ -672,7 +673,7 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* People: Prioritization Chart (Figma 235-3414) — top/bottom */}
+        {/* People: Prioritization Chart (Figma 235-3414) - top/bottom */}
         <section className="relative overflow-visible w-full">
           <div className="absolute inset-0">
             <MeasureGuide label="DIV" className="h-full" />
@@ -714,7 +715,7 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* Flow: Site User Flow Iterations (Figma 126-2420) — top/bottom */}
+        {/* Flow: Site User Flow Iterations (Figma 126-2420) - top/bottom */}
         <section className="relative overflow-visible w-full">
           <div className="absolute inset-0">
             <MeasureGuide label="DIV" className="h-full" />
@@ -755,7 +756,7 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* Flow: Course Catalog Iterations — sticky, 3 images + text (no captions) */}
+        {/* Flow: Course Catalog Iterations - sticky, 3 images + text (no captions) */}
         <CourseCatalogSection />
 
         {/* GAP */}
@@ -763,7 +764,7 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* Retrospective: Project Takeaways (Figma 237-2250 + 272-3431) — top/bottom */}
+        {/* Retrospective: Project Takeaways (Figma 237-2250 + 272-3431) - top/bottom */}
         <section className="relative overflow-visible w-full">
           <div className="absolute inset-0">
             <MeasureGuide label="DIV" className="h-full" />
@@ -847,7 +848,7 @@ export default function AdobeLearningPortalPage() {
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
-        {/* Final Designs: Adobe Certification Portal (Figma 272-3370) — top/bottom */}
+        {/* Final Designs: Adobe Certification Portal (Figma 272-3370) - top/bottom */}
         <section id="final-designs" className="relative overflow-visible w-full">
           <div className="absolute inset-0">
             <MeasureGuide label="DIV" className="h-full" />

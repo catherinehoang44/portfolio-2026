@@ -14,6 +14,8 @@ const defaultState: State = { isOpen: false, type: null, src: null };
 
 export function MediaFullscreenProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<State>(defaultState);
+  const isPngImage =
+    state.type === "img" && state.src != null && /\.png($|\?)/i.test(state.src);
 
   useEffect(() => {
     if (!state.isOpen) return;
@@ -33,6 +35,8 @@ export function MediaFullscreenProvider({ children }: { children: React.ReactNod
       }
       const container = target.closest(".case-media");
       if (!container) return;
+      if (container.hasAttribute("data-media-fullscreen-disabled")) return;
+      if (target.closest("[data-media-fullscreen-ignore]")) return;
 
       const video = container.querySelector("video");
       const iframe = container.querySelector("iframe");
@@ -68,7 +72,9 @@ export function MediaFullscreenProvider({ children }: { children: React.ReactNod
       {state.isOpen && state.src && state.type && (
         <div
           data-media-fullscreen-backdrop
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 cursor-pointer"
+          className={`fixed inset-0 z-[100] flex items-center justify-center cursor-pointer ${
+            isPngImage ? "bg-transparent" : "bg-black/80"
+          }`}
           style={{ padding: 24 }}
           onClick={() => setState(defaultState)}
           role="button"

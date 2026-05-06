@@ -17,6 +17,7 @@ import {
   SCOPE_HEADING_FONT_SIZE_PX,
   SCOPE_LABEL_WIDTH_PX,
   SCOPE_VALUE_FONT_SIZE_PX,
+  CASE_MEDIA_ALIGN_WITH_TEXT_PADDING,
 } from "@/lib/design-tokens";
 
 const EXPERIMENTS_MEDIA_BASE = "/work/experiments";
@@ -132,7 +133,7 @@ function ExperimentPlaceholderSection({
             <LinkToSiteButton href={ctaHref}>Link to site</LinkToSiteButton>
           )}
         </div>
-        <div className="flex-1 min-w-[320px] w-full flex flex-col" style={{ gap: MEDIA_GAP_PX, padding: 16 }}>
+        <div className="flex-1 min-w-[320px] w-full flex flex-col" style={{ gap: MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
           {mediaSrc ? (
             <>
               <div className="flex flex-col w-full" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
@@ -199,7 +200,7 @@ function PokemonDemoSection() {
           <SkillsBlock skills={["Sound design", "animation"]} />
           <LinkToSiteButton href="https://github.com/catherinehoang44/pokemon-remake">Link to Github</LinkToSiteButton>
         </div>
-        <div className="flex-1 min-w-[320px] w-full flex flex-col items-center" style={{ gap: MEDIA_GAP_PX, padding: 16 }}>
+        <div className="flex-1 min-w-[320px] w-full flex flex-col items-center" style={{ gap: MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
           {POKEMON_DEMO_VIDEOS.map((src, i) => (
             <div key={src} className="flex flex-col w-full items-center" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
               <div
@@ -302,7 +303,7 @@ export default function PokemonFireRedPage() {
 
         {/* Case study header (Figma 126-2105) */}
         <header className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="HDR" className="h-full" />
           </div>
           <div

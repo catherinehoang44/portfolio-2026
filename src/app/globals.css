@@ -105,6 +105,25 @@ video {
   font-size: var(--text-case-scope-value);
 }
 
+/* Case study back tag: arrow + label link back home */
+.case-study-tag {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  gap: 6px;
+  color: var(--color-text-muted-strong);
+  cursor: pointer;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.case-study-tag:hover,
+.case-study-tag:focus-visible {
+  color: var(--color-text-muted-strong);
+}
+
 .text-label {
   font-size: var(--text-label);
 }
@@ -198,8 +217,19 @@ video {
   border-radius: 4px;
 }
 /* Case media: clickable when it contains video/img/iframe (fullscreen on click) */
-.case-media:has(video),
-.case-media:has(iframe),
-.case-media:has(img[src]:not([src$=".svg"])) {
+.case-media:not([data-media-fullscreen-disabled]):has(video),
+.case-media:not([data-media-fullscreen-disabled]):has(iframe),
+.case-media:not([data-media-fullscreen-disabled]):has(img[src]:not([src$=".svg"])) {
   cursor: pointer;
+}
+
+/* Scrollable region: wheel/trackpad still scrolls; scrollbar chrome hidden */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }

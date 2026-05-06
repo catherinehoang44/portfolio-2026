@@ -24,7 +24,7 @@ export function CaseStudyMediaSlot({
         src={src}
         alt=""
         fill
-        className={`pointer-events-none ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
+        className={`pointer-events-none rounded-[4px] ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
         unoptimized
         onError={() => setFailed(true)}
         draggable={false}

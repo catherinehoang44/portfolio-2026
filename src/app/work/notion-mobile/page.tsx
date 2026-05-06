@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { MeasureGuide } from "@/app/components/MeasureGuide";
 import { LinkToSiteButton } from "@/app/components/LinkToSiteButton";
 import { ScopeDetails } from "@/app/components/ScopeDetails";
@@ -15,6 +16,7 @@ import {
   CASE_SECTION_SUBHEADING_FONT_SIZE_PX,
   CASE_MEDIA_PLACEHOLDER_FILL,
   SCOPE_HEADING_FONT_SIZE_PX,
+  CASE_MEDIA_ALIGN_WITH_TEXT_PADDING,
 } from "@/lib/design-tokens";
 
 const NOTION_SCOPE_ITEMS = [
@@ -40,7 +42,7 @@ export default function NotionMobilePage() {
 
         {/* Case study header */}
         <header className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="HDR" className="h-full" />
           </div>
           <div
@@ -52,12 +54,19 @@ export default function NotionMobilePage() {
                 className="flex flex-col flex-1 min-w-[320px]"
                 style={{ gap: CONTAINER_GAP_PX }}
               >
-                <p
-                  className="font-medium text-case-body"
-                  style={{ color: COLORS.textMutedStrong }}
+                <Link
+                  href="/"
+                  className="case-study-tag font-medium text-case-body"
                 >
-                  Case study
-                </p>
+                  <img
+                    src="/images/case-back-arrow.svg"
+                    alt=""
+                    aria-hidden
+                    style={{ width: 12, height: 12 }}
+                    draggable={false}
+                  />
+                  <span>Case study</span>
+                </Link>
                 <h1
                   className="font-display text-heading"
                   style={{ color: COLORS.text }}
@@ -183,7 +192,7 @@ export default function NotionMobilePage() {
                 </li>
               </ul>
             </div>
-            <div className="flex-1 min-w-[320px] w-full flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}>
+            <div className="flex-1 min-w-[320px] w-full flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
               <div
                 className="case-media relative w-full overflow-hidden"
                 style={{ aspectRatio: "16/10", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
@@ -215,7 +224,7 @@ export default function NotionMobilePage() {
                 End-Point Swipe Interactions
               </h2>
             </div>
-            <div className="flex-1 min-w-[320px] w-full flex flex-col gap-6" style={{ padding: 16 }}>
+            <div className="flex-1 min-w-[320px] w-full flex flex-col gap-6" style={{ ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
               <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
                 <div
                   className="case-media relative w-full overflow-hidden"
@@ -256,7 +265,7 @@ export default function NotionMobilePage() {
                 Tap Drag Interactions
               </h2>
             </div>
-            <div className="flex-1 min-w-[320px] w-full flex flex-col gap-6" style={{ padding: 16 }}>
+            <div className="flex-1 min-w-[320px] w-full flex flex-col gap-6" style={{ ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
               <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
                 <div
                   className="case-media relative w-full overflow-hidden"
@@ -297,7 +306,7 @@ export default function NotionMobilePage() {
                 Left Press / Swipe Interaction
               </h2>
             </div>
-            <div className="flex-1 min-w-[320px] w-full flex flex-col gap-6" style={{ padding: 16 }}>
+            <div className="flex-1 min-w-[320px] w-full flex flex-col gap-6" style={{ ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
               <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
                 <div
                   className="case-media relative w-full overflow-hidden"

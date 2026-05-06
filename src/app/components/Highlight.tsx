@@ -13,6 +13,8 @@ export const HIGHLIGHT_TWINKLE_ICON_SRC =
 export interface HighlightProps {
   className?: string;
   style?: React.CSSProperties;
+  titleStyle?: React.CSSProperties;
+  bodyStyle?: React.CSSProperties;
   /** Optional icon image URL (e.g. for Hick's Law lightbulb / twinkle). */
   iconSrc?: string;
   /** Card title (e.g. "Hick's Law"). Omit or leave empty to show only children. */
@@ -75,7 +77,16 @@ function StarOrIcon({ iconSrc }: { iconSrc?: string }) {
   );
 }
 
-export function Highlight({ className, style, iconSrc, title = "", iconLeftLayout = false, children }: HighlightProps) {
+export function Highlight({
+  className,
+  style,
+  titleStyle,
+  bodyStyle,
+  iconSrc,
+  title = "",
+  iconLeftLayout = false,
+  children,
+}: HighlightProps) {
   const articleStyle: React.CSSProperties = {
     display: "flex",
     flexDirection: "row",
@@ -128,6 +139,7 @@ export function Highlight({ className, style, iconSrc, title = "", iconLeftLayou
               fontWeight: 400,
               lineHeight: "15.6px",
               textAlign: "left",
+              ...bodyStyle,
             }}
           >
             {children}
@@ -178,6 +190,7 @@ export function Highlight({ className, style, iconSrc, title = "", iconLeftLayou
                 lineHeight: "19.2px",
                 textAlign: "left",
                 flexGrow: 1,
+                ...titleStyle,
               }}
             >
               {title}
@@ -194,6 +207,7 @@ export function Highlight({ className, style, iconSrc, title = "", iconLeftLayou
             lineHeight: "15.6px",
             textAlign: "left",
             alignSelf: "stretch",
+            ...bodyStyle,
           }}
         >
           {children}

@@ -175,7 +175,7 @@ export function DataVisualizationPanel({
           paddingTop: "16px",
           paddingBottom: "16px",
           gap: "32px",
-          backgroundColor: "rgba(255, 255, 255, 1)",
+          backgroundColor: "transparent",
           boxSizing: "border-box",
           overflow: "visible",
           position: "relative",
@@ -343,7 +343,7 @@ export function DataVisualizationPanel({
         style={{
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.08)",
+          backgroundColor: "transparent",
           boxSizing: "border-box",
           position: "absolute",
           left: 0,
@@ -359,6 +359,15 @@ export function DataVisualizationPanel({
       <Highlight
         title="Hick's Law"
         iconSrc={HICKS_ICON_SRC}
+        titleStyle={{
+          color: "#8C8C8C",
+        }}
+        bodyStyle={{
+          color: "#8C8C8C",
+          fontSize: "12px",
+          lineHeight: "14.4px",
+          letterSpacing: "0.48px",
+        }}
         style={{
           width: "332px",
           height: "auto",

@@ -26,6 +26,17 @@ export const CONTAINER_GAP_PX = 16;
 /** Gap between stacked media (top/bottom) — apply between video/image blocks and their captions. */
 export const MEDIA_GAP_PX = 42;
 
+/**
+ * Media stack / grid cell padding: no extra padding-left so media aligns with section body headings
+ * (same horizontal start as text that uses only CONTENT_OFFSET_LEFT_PX).
+ */
+export const CASE_MEDIA_ALIGN_WITH_TEXT_PADDING = {
+  paddingTop: 16,
+  paddingRight: 16,
+  paddingBottom: 16,
+  paddingLeft: 0,
+} as const;
+
 /** Vertical rhythm / section gaps */
 export const SECTION_GAP_TOP_PX = 96;
 export const SECTION_GAP_HEADER_NAV_MOBILE_PX = 24;

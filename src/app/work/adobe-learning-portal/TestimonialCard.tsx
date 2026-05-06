@@ -39,7 +39,8 @@ interface QuoteBoxProps {
 }
 
 const DIM_OPACITY = 0.5;
-const MOTION_TRANSITION = "opacity 0.4s ease, filter 0.4s ease, background-color 0.4s ease, border-color 0.4s ease";
+const MOTION_TRANSITION =
+  "opacity 0.4s ease, filter 0.4s ease, background-color 0.4s ease, border-color 0.4s ease";
 
 const QuoteBox: React.FC<QuoteBoxProps> = ({
   description,
@@ -54,30 +55,38 @@ const QuoteBox: React.FC<QuoteBoxProps> = ({
   const textOpacity = isDimmed ? DIM_OPACITY : 1;
   const blurPx = isDimmed ? 4 : 4;
   return (
-  <div
-    role="article"
-    style={{
-      flex: "0 0 auto",
-      width: "240px",
-      height: "auto",
-      minHeight: 0,
-      display: "flex",
-      flexDirection: "column",
-      padding: "16px",
-      gap: "8px",
-      backgroundColor: isDimmed ? "transparent" : `rgba(255, 255, 255, ${bgAlpha})`,
-      borderColor: `rgba(242, 242, 242, ${borderAlpha})`,
-      borderStyle: "solid",
-      borderWidth: "1px",
-      boxSizing: "border-box",
-      borderRadius: "4px",
-      overflow: "hidden",
-      cursor: "default",
-      position: "relative",
-      transition: MOTION_TRANSITION,
-      ...(isDimmed ? {} : { backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" }),
-    }}
-  >
+    <div
+      role="article"
+      style={{
+        flex: "0 0 auto",
+        width: "240px",
+        height: "auto",
+        minHeight: 0,
+        display: "flex",
+        flexDirection: "column",
+        padding: "16px",
+        gap: "8px",
+        backgroundColor: isDimmed
+          ? "transparent"
+          : `rgba(255, 255, 255, ${bgAlpha})`,
+        borderColor: isDimmed ? "transparent" : `rgba(242, 242, 242, ${borderAlpha})`,
+        borderStyle: "solid",
+        borderWidth: "1px",
+        borderImageSource: isDimmed
+          ? `linear-gradient(180deg, rgba(242, 242, 242, ${borderAlpha}) 0%, rgba(242, 242, 242, 0) 100%)`
+          : undefined,
+        borderImageSlice: isDimmed ? 1 : undefined,
+        boxSizing: "border-box",
+        borderRadius: "4px",
+        overflow: "hidden",
+        cursor: "default",
+        position: "relative",
+        transition: MOTION_TRANSITION,
+        ...(isDimmed
+          ? {}
+          : { backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" }),
+      }}
+    >
       {/* Blur layer: always in DOM for smooth transition; opacity 0 when not dimmed */}
       <div
         aria-hidden
@@ -86,7 +95,7 @@ const QuoteBox: React.FC<QuoteBoxProps> = ({
           inset: 0,
           zIndex: 0,
           borderRadius: "4px",
-          backgroundColor: `rgba(255, 255, 255, ${DIM_OPACITY})`,
+          background: `linear-gradient(180deg, rgba(255, 255, 255, ${DIM_OPACITY}) 0%, rgba(255, 255, 255, 0.2) 100%)`,
           boxSizing: "border-box",
           backdropFilter: `blur(${blurPx}px)`,
           WebkitBackdropFilter: `blur(${blurPx}px)`,
@@ -129,7 +138,9 @@ const QuoteBox: React.FC<QuoteBoxProps> = ({
             position: "relative",
             opacity: textOpacity,
             transition: MOTION_TRANSITION,
-            ...(isDimmed ? { filter: "blur(8px)", WebkitFilter: "blur(8px)" } : {}),
+            ...(isDimmed
+              ? { filter: "blur(8px)", WebkitFilter: "blur(8px)" }
+              : {}),
           }}
         >
           {description}
@@ -149,7 +160,9 @@ const QuoteBox: React.FC<QuoteBoxProps> = ({
             zIndex: 1,
             position: "relative",
             transition: MOTION_TRANSITION,
-            ...(isDimmed ? { filter: "blur(8px)", WebkitFilter: "blur(8px)" } : {}),
+            ...(isDimmed
+              ? { filter: "blur(8px)", WebkitFilter: "blur(8px)" }
+              : {}),
           }}
         >
           <Profile />
@@ -239,7 +252,10 @@ export interface TestimonialCardProps {
   motionStep?: 3 | 4;
 }
 
-export const TestimonialCard: React.FC<TestimonialCardProps> = ({ style, motionStep = 4 }) => {
+export const TestimonialCard: React.FC<TestimonialCardProps> = ({
+  style,
+  motionStep = 4,
+}) => {
   const isMotion4 = motionStep === 4;
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -278,7 +294,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ style, motionS
         justifyContent: "center",
         alignItems: "center",
         padding: "16px",
-        backgroundColor: "rgba(255, 255, 255, 1)",
+        backgroundColor: "transparent",
         boxSizing: "border-box",
         position: "relative",
         margin: "0 auto",

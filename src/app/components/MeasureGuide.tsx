@@ -20,7 +20,7 @@ export function MeasureGuide({
 }) {
   return (
     <div
-      className={`absolute left-0 top-0 bottom-0 overflow-visible select-none ${className}`}
+      className={`absolute left-0 top-0 bottom-0 overflow-visible select-none pointer-events-none ${className}`}
       style={{ width: MEASURE_STRIP_WIDTH, ...style }}
       onDragStart={(e) => e.preventDefault()}
       draggable={false}

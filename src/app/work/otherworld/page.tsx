@@ -15,6 +15,7 @@ import {
   COLORS,
   CASE_CONTENT_PADDING_BOTTOM_PX,
   CASE_BACK_MEASURE_LABEL,
+  CASE_MEDIA_ALIGN_WITH_TEXT_PADDING,
 } from "@/lib/design-tokens";
 
 /** Upload case study media to public/work/otherworld/ — see MEDIA_SLOTS / VIDEO_SLOTS for filenames. */
@@ -172,7 +173,7 @@ export default function OtherworldPage() {
 
         {/* Case study header (Figma): measure strip + arrow home + two-column layout */}
         <header className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="HDR" className="h-full" />
           </div>
           <div
@@ -185,12 +186,19 @@ export default function OtherworldPage() {
                 className="flex flex-col flex-1 min-w-[320px]"
                 style={{ gap: CONTAINER_GAP_PX }}
               >
-                <p
-                  className="font-medium text-case-body"
-                  style={{ color: COLORS.textMutedStrong }}
+                <Link
+                  href="/"
+                  className="case-study-tag font-medium text-case-body"
                 >
-                  Case study
-                </p>
+                  <img
+                    src="/images/case-back-arrow.svg"
+                    alt=""
+                    aria-hidden
+                    style={{ width: 12, height: 12 }}
+                    draggable={false}
+                  />
+                  <span>Case study</span>
+                </Link>
                 <h1
                   className="font-display text-heading"
                   style={{ color: COLORS.text }}
@@ -265,7 +273,7 @@ export default function OtherworldPage() {
             >
               <div
                 className="flex flex-col min-w-0 w-full"
-                style={{ gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}
+                style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}
               >
                 <div
                   className="case-media relative w-full overflow-hidden"
@@ -277,7 +285,7 @@ export default function OtherworldPage() {
               </div>
               <div
                 className="flex flex-col min-w-0 w-full"
-                style={{ gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}
+                style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}
               >
                 <div
                   className="case-media relative w-full overflow-hidden"
@@ -306,7 +314,7 @@ export default function OtherworldPage() {
           </div>
           <div
             className="flex flex-col py-6"
-            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX, gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}
+            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX, gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}
           >
             <div
               className="case-media relative w-full overflow-hidden"
@@ -341,7 +349,7 @@ export default function OtherworldPage() {
             >
               <div
                 className="flex flex-col min-w-0 w-full"
-                style={{ gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}
+                style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}
               >
                 <div
                   className="case-media relative w-full overflow-hidden"
@@ -353,7 +361,7 @@ export default function OtherworldPage() {
               </div>
               <div
                 className="flex flex-col min-w-0 w-full"
-                style={{ gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}
+                style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}
               >
                 <div
                   className="case-media relative w-full overflow-hidden"
@@ -382,7 +390,7 @@ export default function OtherworldPage() {
           </div>
           <div
             className="flex flex-col py-6"
-            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX, gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}
+            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX, gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}
           >
             <div
               className="case-media relative w-full overflow-hidden"
@@ -409,7 +417,7 @@ export default function OtherworldPage() {
           </div>
           <div
             className="flex flex-col py-6"
-            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX, gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}
+            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX, gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}
           >
             <div
               className="case-media relative w-full overflow-hidden"

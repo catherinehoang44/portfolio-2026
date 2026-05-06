@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { MeasureGuide } from "@/app/components/MeasureGuide";
 import { ScopeDetails } from "@/app/components/ScopeDetails";
 import {
@@ -14,6 +15,7 @@ import {
   CASE_SECTION_SUBHEADING_FONT_SIZE_PX,
   CASE_MEDIA_PLACEHOLDER_FILL,
   SCOPE_HEADING_FONT_SIZE_PX,
+  CASE_MEDIA_ALIGN_WITH_TEXT_PADDING,
 } from "@/lib/design-tokens";
 import { CaseStudyCaption } from "@/app/components/CaseStudyCaption";
 import { CaseStudyMediaSlot } from "@/app/components/CaseStudyMediaSlot";
@@ -70,7 +72,7 @@ export default function BuildAnythingAIPage() {
 
         {/* Case study header (Figma 121-2218) */}
         <header className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="HDR" className="h-full" />
           </div>
           <div
@@ -82,12 +84,19 @@ export default function BuildAnythingAIPage() {
                 className="flex flex-col flex-1 min-w-[320px]"
                 style={{ gap: CONTAINER_GAP_PX }}
               >
-                <p
-                  className="font-medium text-case-body"
-                  style={{ color: COLORS.textMutedStrong }}
+                <Link
+                  href="/"
+                  className="case-study-tag font-medium text-case-body"
                 >
-                  Case study
-                </p>
+                  <img
+                    src="/images/case-back-arrow.svg"
+                    alt=""
+                    aria-hidden
+                    style={{ width: 12, height: 12 }}
+                    draggable={false}
+                  />
+                  <span>Case study</span>
+                </Link>
                 <h1
                   className="font-display text-heading"
                   style={{ color: COLORS.text }}
@@ -245,7 +254,7 @@ export default function BuildAnythingAIPage() {
               </h2>
             </div>
             <div className="w-full flex flex-col md:flex-row gap-6 md:gap-12">
-              <div className="flex-1 min-w-0 flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}>
+              <div className="flex-1 min-w-0 flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <div
                   className="case-media relative w-full overflow-hidden"
                   style={{ aspectRatio: ASPECT_SIDE, minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
@@ -254,7 +263,7 @@ export default function BuildAnythingAIPage() {
                 </div>
                 <CaseStudyCaption description="Using groups and contrast to signal priorities" tag="Image" />
               </div>
-              <div className="flex-1 min-w-0 flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}>
+              <div className="flex-1 min-w-0 flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <div
                   className="case-media relative w-full overflow-hidden"
                   style={{ aspectRatio: ASPECT_SIDE, minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
@@ -362,7 +371,7 @@ export default function BuildAnythingAIPage() {
               </h2>
             </div>
             <div className="w-full flex flex-col md:flex-row gap-6 md:gap-12">
-              <div className="flex-1 min-w-0 flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}>
+              <div className="flex-1 min-w-0 flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <div
                   className="case-media relative w-full overflow-hidden"
                   style={{ aspectRatio: ASPECT_SIDE, minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
@@ -371,7 +380,7 @@ export default function BuildAnythingAIPage() {
                 </div>
                 <CaseStudyCaption description="Clear next steps shown after 3rd prompt" tag="Image" />
               </div>
-              <div className="flex-1 min-w-0 flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, padding: 16 }}>
+              <div className="flex-1 min-w-0 flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <div
                   className="case-media relative w-full overflow-hidden"
                   style={{ aspectRatio: ASPECT_SIDE, minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}

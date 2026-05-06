@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { MeasureGuide } from "@/app/components/MeasureGuide";
 import { LinkToSiteButton } from "@/app/components/LinkToSiteButton";
 import { ScopeDetails } from "@/app/components/ScopeDetails";
@@ -12,6 +13,7 @@ import {
   COLORS,
   CASE_CONTENT_PADDING_BOTTOM_PX,
   SCOPE_HEADING_FONT_SIZE_PX,
+  CASE_MEDIA_ALIGN_WITH_TEXT_PADDING,
 } from "@/lib/design-tokens";
 
 /** Base path for media. Files must exist in public/work/dia-browser/ — see that folder’s README for exact filenames. Grey “Image”/“Video” placeholders mean the file is missing or the path failed (404). */
@@ -114,7 +116,7 @@ export default function DiaBrowserPage() {
 
         {/* Case study header: template */}
         <header className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="HDR" className="h-full" />
           </div>
           <div
@@ -126,12 +128,19 @@ export default function DiaBrowserPage() {
                 className="flex flex-col flex-1 min-w-[320px]"
                 style={{ gap: CONTAINER_GAP_PX }}
               >
-                <p
-                  className="font-medium text-case-body"
-                  style={{ color: COLORS.textMutedStrong }}
+                <Link
+                  href="/"
+                  className="case-study-tag font-medium text-case-body"
                 >
-                  Case study
-                </p>
+                  <img
+                    src="/images/case-back-arrow.svg"
+                    alt=""
+                    aria-hidden
+                    style={{ width: 12, height: 12 }}
+                    draggable={false}
+                  />
+                  <span>Case study</span>
+                </Link>
                 <h1
                   className="font-display text-heading"
                   style={{ color: COLORS.text }}
@@ -207,7 +216,7 @@ export default function DiaBrowserPage() {
               className="grid grid-cols-1 md:grid-cols-2 w-full"
               style={{ gap: CONTAINER_GAP_PX }}
             >
-              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, padding: 16 }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
                   Before
                 </p>
@@ -222,7 +231,7 @@ export default function DiaBrowserPage() {
                   tag="Image"
                 />
               </div>
-              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, padding: 16 }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
                   After
                 </p>
@@ -268,7 +277,7 @@ export default function DiaBrowserPage() {
               className="grid grid-cols-1 md:grid-cols-2 w-full"
               style={{ gap: CONTAINER_GAP_PX }}
             >
-              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, padding: 16 }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
                   Before
                 </p>
@@ -283,7 +292,7 @@ export default function DiaBrowserPage() {
                   tag="Image"
                 />
               </div>
-              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, padding: 16 }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
                   After
                 </p>
@@ -329,7 +338,7 @@ export default function DiaBrowserPage() {
               className="grid grid-cols-1 md:grid-cols-2 w-full"
               style={{ gap: CONTAINER_GAP_PX }}
             >
-              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, padding: 16 }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
                   Before
                 </p>
@@ -344,7 +353,7 @@ export default function DiaBrowserPage() {
                   tag="Video"
                 />
               </div>
-              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, padding: 16 }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: 8, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
                 <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
                   After
                 </p>
