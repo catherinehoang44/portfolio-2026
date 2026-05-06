@@ -98,8 +98,8 @@ const ADOBE_LMS_SCREENSHOTS: AdobeImage[] = [
 ];
 
 const ADOBE_FINAL_DESIGN_MEDIA: AdobeFinalDesignMedia[] = [
-  { media: "video", src: `${ADOBE_MEDIA_BASE}/adobe-home.mp4`, caption: "Certification portal home" },
   { media: "video", src: `${ADOBE_MEDIA_BASE}/adobe-profile.mp4`, caption: "User profile" },
+  { media: "video", src: `${ADOBE_MEDIA_BASE}/adobe-home.mp4`, caption: "Certification portal home" },
   {
     media: "image",
     image: { src: `${ADOBE_MEDIA_BASE}/adobe-catalog.png`, width: 1024, height: 834 },
