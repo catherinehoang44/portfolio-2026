@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LiveClock, IsometricStack } from "./components/CardStack";
+import { useTypewriterSingle } from "./hooks/useTypewriter";
 import { MeasureGuide } from "./components/MeasureGuide";
 import {
   CONTENT_OFFSET_LEFT_PX,
@@ -59,11 +60,12 @@ function CatImage({ className }: { className?: string }) {
   );
 }
 
-/** Tag next to case title (desktop). For now: no animation, show full tag when visible. */
+/** Tag next to case title (desktop). Types out when visible. */
 function TypedTag({ tag, visible }: { tag: string; visible: boolean }) {
+  const display = useTypewriterSingle(tag, visible, { charMs: 28 });
   return (
     <span className="font-mono text-xs uppercase text-zinc-400 inline-block overflow-hidden whitespace-nowrap">
-      {visible ? tag : ""}
+      {display}
     </span>
   );
 }

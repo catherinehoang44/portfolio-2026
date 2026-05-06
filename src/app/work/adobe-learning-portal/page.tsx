@@ -15,7 +15,6 @@ import {
   CONTENT_OFFSET_LEFT_PX,
   SECTION_GAP_TOP_PX,
   MEDIA_GAP_PX,
-  CAPTION_MEDIA_GAP_PX,
   COLORS,
   CASE_CONTENT_PADDING_BOTTOM_PX,
   CASE_SECTION_SUBHEADING_FONT_SIZE_PX,
@@ -24,6 +23,8 @@ import {
 } from "@/lib/design-tokens";
 
 const ADOBE_MEDIA_BASE = "/work/adobe-learning-portal";
+/** Caption–media gap on this page (16px). */
+const ADOBE_CAPTION_MEDIA_GAP_PX = 16;
 
 const CONTEXT_OPACITY_DIM = 0.36;
 const CONTEXT_STEPS = 4;
@@ -217,23 +218,8 @@ function CourseCatalogSection() {
           >
             Course Catalog Iterations
           </h2>
-          <div className="flex flex-col w-full max-w-full mt-4" style={{ gap: 16 }}>
-            {COURSE_CATALOG_TEXTS.map((text, i) => (
-              <p
-                key={i}
-                className="text-case-body w-full max-w-full transition-opacity duration-300"
-                style={{
-                  color: COLORS.textMutedStrong,
-                  lineHeight: 1.6,
-                  opacity: focus === i + 1 ? 1 : CONTEXT_OPACITY_DIM,
-                }}
-              >
-                {text}
-              </p>
-            ))}
-          </div>
         </div>
-        <div className="flex-1 min-w-[320px] w-full flex flex-col" style={{ padding: 16 }}>
+        <div className="flex-1 min-w-[320px] w-full flex flex-col" style={{ gap: 16, padding: 16 }}>
           <div
             className="case-media relative w-full overflow-hidden"
             style={{ aspectRatio: "514/420", minHeight: 200, background: "#FFFFFF" }}
@@ -255,13 +241,7 @@ function CourseCatalogSection() {
             ))}
           </div>
           <CaseStudyCaption
-            description={
-                [
-                  "Actions and hierarchy unclear, weakening scannability",
-                  "Ambiguous interactions (e.g., star icon, multi-tag behavior)",
-                  "Card layout improves scannability and visual hierarchy",
-                ][focus - 1]
-              }
+            description={COURSE_CATALOG_TEXTS[focus - 1]}
             tag="Image"
           />
         </div>
@@ -361,7 +341,7 @@ export default function AdobeLearningPortalPage() {
                 className="font-sans font-light w-full mt-2"
                 style={{ color: COLORS.text, fontSize: 21 }}
               >
-                How we achieved +500% Adobe credentialed in 3 Quarters
+                How we achieved +20% Adobe credentialed in 1 Quarter
               </h2>
               <div className="flex flex-col w-full max-w-full mt-4" style={{ gap: 16 }}>
                 <p
@@ -384,7 +364,7 @@ export default function AdobeLearningPortalPage() {
                 </p>
               </div>
             </div>
-            <div className="flex-1 min-w-[320px] flex flex-col w-full" style={{ gap: 8, padding: 16 }}>
+            <div className="flex-1 min-w-[320px] flex flex-col w-full" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX, padding: 16 }}>
               <div
                 className="case-media relative w-full overflow-hidden"
                 style={{ aspectRatio: "514/420", minHeight: 200, background: "#FFFFFF" }}
@@ -543,7 +523,7 @@ export default function AdobeLearningPortalPage() {
               </div>
             </div>
             <div className="w-full flex flex-col" style={{ gap: MEDIA_GAP_PX, padding: 16 }}>
-              <div className="w-full flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+              <div className="w-full flex flex-col" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX }}>
                 <div
                   className="case-media relative w-full overflow-hidden"
                   style={{ aspectRatio: "1110/320", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
@@ -659,7 +639,7 @@ export default function AdobeLearningPortalPage() {
               </h2>
             </div>
             <div className="w-full flex flex-col" style={{ gap: MEDIA_GAP_PX, padding: 16 }}>
-              <div className="w-full flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+              <div className="w-full flex flex-col" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX }}>
                 <div
                   className="relative w-full overflow-visible"
                   style={{ width: "100%", minHeight: 0 }}
@@ -712,7 +692,7 @@ export default function AdobeLearningPortalPage() {
               </ul>
             </div>
             <div className="w-full flex flex-col" style={{ gap: MEDIA_GAP_PX, padding: 16 }}>
-              <div className="w-full flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+              <div className="w-full flex flex-col" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX }}>
                 <div
                   className="case-media relative w-full overflow-hidden"
                   style={{ aspectRatio: "1110/320", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
@@ -725,7 +705,7 @@ export default function AdobeLearningPortalPage() {
                 </div>
                 <CaseStudyCaption description="Community and secondary paths surfaced too early" tag="Image" />
               </div>
-              <div className="w-full flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+              <div className="w-full flex flex-col" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX }}>
                 <div
                   className="case-media relative w-full overflow-hidden"
                   style={{ aspectRatio: "1110/320", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
@@ -873,7 +853,7 @@ export default function AdobeLearningPortalPage() {
             </div>
             <div className="w-full flex flex-col" style={{ gap: MEDIA_GAP_PX, padding: 16 }}>
               {/* Rive: first, same layout as video blocks — 1920/1080 outer, fill height, scales */}
-              <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+              <div className="flex flex-col" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX }}>
                 <div
                   className="case-media relative w-full overflow-hidden flex items-center justify-center"
                   style={{
@@ -908,7 +888,7 @@ export default function AdobeLearningPortalPage() {
                 { src: `${ADOBE_MEDIA_BASE}/adobe-catalog.mp4`, caption: "Course catalog" },
                 { src: `${ADOBE_MEDIA_BASE}/adobe-lms.mp4`, caption: "Learning management experience" },
               ].map(({ src, caption }) => (
-                <div key={src} className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+                <div key={src} className="flex flex-col" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX }}>
                   <div
                     className="case-media relative w-full overflow-hidden flex items-center justify-center"
                     style={{
