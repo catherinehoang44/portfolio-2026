@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, type ReactNode } from "react";
 
 import {
   COLORS,
@@ -21,11 +21,23 @@ export function ScopeDetails({
   detailsLabel = "Details",
   scopeLabel = "Scope",
   items,
+  description,
+  descriptionPreface,
+  descriptionPrefaceItalic = false,
+  descriptionItalic = false,
+  afterDescription,
   className = "",
 }: {
   detailsLabel?: string;
   scopeLabel?: string;
   items: ScopeItem[];
+  /** Shown directly under the project title, before `description`. */
+  descriptionPreface?: string;
+  descriptionPrefaceItalic?: boolean;
+  /** Case or project summary — rendered below the project title, above scope items. */
+  description?: string;
+  descriptionItalic?: boolean;
+  afterDescription?: ReactNode;
   className?: string;
 }) {
   const [openMoreLabel, setOpenMoreLabel] = useState<string | null>(null);
@@ -48,6 +60,26 @@ export function ScopeDetails({
       >
         {scopeLabel}
       </h2>
+      {descriptionPreface ? (
+        <p
+          className={`max-w-[640px] font-sans font-normal text-case-body${descriptionPrefaceItalic ? " italic" : ""}`}
+          style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}
+        >
+          {descriptionPreface}
+        </p>
+      ) : null}
+      {description
+        ? description.split(/\n\n+/).map((paragraph, index) => (
+            <p
+              key={index}
+              className={`max-w-[640px] font-sans font-normal text-case-body${descriptionItalic ? " italic" : ""}`}
+              style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}
+            >
+              {paragraph}
+            </p>
+          ))
+        : null}
+      {afterDescription}
       <dl className="flex flex-col gap-2">
         {items.map(({ label, value, moreItems }) => {
           const listId = `${listIdPrefix}-${label}`;

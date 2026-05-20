@@ -88,6 +88,9 @@ export const CASE_MEDIA_DESKTOP_HEIGHT_PX = 720;
 export const CASE_MEDIA_MOBILE_HEIGHT_PX = 420;
 export const CASE_MEDIA_MAX_WIDTH_PX = 420;
 
+/** Half of container-main max width — used for narrower case media (e.g. Pixeldoro concept, sprite sheets). */
+export const CASE_MEDIA_HALF_CONTAINER_MAX_WIDTH_PX = CONTAINER_MAX_WIDTH_PX / 2;
+
 /** Case media placeholder: fill for empty image/video containers until assets are added. */
 export const CASE_MEDIA_PLACEHOLDER_FILL = "#EEEEEE";
 

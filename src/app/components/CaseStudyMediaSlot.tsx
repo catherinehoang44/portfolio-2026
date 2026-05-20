@@ -7,11 +7,13 @@ export function CaseStudyMediaSlot({
   src,
   className = "",
   objectFit = "cover",
+  borderRadiusPx = 4,
 }: {
   src: string;
   className?: string;
   /** "contain" = whole image visible (may letterbox); "cover" = fill container (may crop). */
   objectFit?: "cover" | "contain";
+  borderRadiusPx?: number;
 }) {
   const [failed, setFailed] = useState(false);
   if (failed) {
@@ -25,7 +27,8 @@ export function CaseStudyMediaSlot({
       <img
         src={src}
         alt=""
-        className={`pointer-events-none absolute inset-0 h-full w-full rounded-[4px] ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
+        className={`pointer-events-none absolute inset-0 h-full w-full ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
+        style={{ borderRadius: borderRadiusPx }}
         onError={() => setFailed(true)}
         draggable={false}
         loading="lazy"

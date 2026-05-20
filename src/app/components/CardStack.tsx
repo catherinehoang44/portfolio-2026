@@ -58,16 +58,77 @@ function CardBase({ state }: { state: CardState }) {
 
 /* eslint-disable @next/next/no-img-element */
 
-function CardTopSvg({ src, visible }: { src: string; visible: boolean }) {
+function CardTopSvg({
+  src,
+  visible,
+  scale = 1,
+  offsetX = 0,
+  offsetY = 0,
+}: {
+  src: string;
+  visible: boolean;
+  scale?: number;
+  /** Nudge art horizontally (px); positive moves right. */
+  offsetX?: number;
+  /** Nudge art down (px) within the card. */
+  offsetY?: number;
+}) {
   return (
     <div
-      className="absolute top-0 left-1/2 w-full h-full transition-opacity duration-500 select-none"
+      className="absolute top-0 left-1/2 h-full w-full transition-opacity duration-500 select-none"
       style={{
-        transform: "translateX(-50%)",
+        transform: `translate(calc(-50% + ${offsetX}px), ${offsetY}px) scale(${scale})`,
+        transformOrigin: "center center",
         opacity: visible ? 1 : 0,
       }}
     >
-      <img src={src} alt="" className="w-full h-full" draggable={false} />
+      <img
+        src={src}
+        alt=""
+        className="h-full w-full object-contain"
+        draggable={false}
+      />
+    </div>
+  );
+}
+
+/** Raster card top in a 500×500 canvas (matches native 500×500 SVG card tops like Build Anything). */
+function IsometricCardTopImage({
+  src,
+  visible,
+  scale = 1,
+  offsetX = 0,
+  offsetY = 0,
+}: {
+  src: string;
+  visible: boolean;
+  scale?: number;
+  /** Nudge art horizontally (px); positive moves right. */
+  offsetX?: number;
+  /** Nudge art vertically (px); negative moves up. */
+  offsetY?: number;
+}) {
+  return (
+    <div
+      className="absolute top-0 left-1/2 h-full w-full transition-opacity duration-500 select-none"
+      style={{ transform: "translateX(-50%)", opacity: visible ? 1 : 0 }}
+    >
+      <div
+        className="absolute left-1/2 top-1/2"
+        style={{
+          width: 500,
+          height: 500,
+          transform: `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px)) scale(${scale})`,
+          transformOrigin: "center",
+        }}
+      >
+        <img
+          src={src}
+          alt=""
+          className="h-full w-full object-contain"
+          draggable={false}
+        />
+      </div>
     </div>
   );
 }
@@ -277,7 +338,7 @@ const ABOVE_SPACING = 32;
 const ABOVE_TOP = -320;
 const ABOVE_OFFSETS = CARD_OFFSETS.map((_, i) => ABOVE_TOP + i * ABOVE_SPACING);
 
-const CARD_TOP_SVGS = [
+const WORK_CARD_TOP_SVGS = [
   "/images/top-adobe.svg",
   null, // dia-browser - inline component
   "/images/top-anything.svg",
@@ -286,7 +347,32 @@ const CARD_TOP_SVGS = [
   "/images/top-firered.svg",
 ];
 
+const GAMES_CARD_TOP_SVGS = [
+  "/images/top-pixeldoro.png",
+  "/images/top-minecraft-education.png",
+  "/images/top-firered.svg",
+  null, // laundromat — raster (see IsometricCardTopImage)
+  "/images/top-adobe.svg",
+  null, // experiments — raster (see IsometricCardTopImage)
+];
+
+/** Per-card scale for games card top art (e.g. Pixeldoro slightly smaller). */
+const GAMES_CARD_TOP_SCALES = [0.9, 1, 1, 1, 1, 1];
+
+/** Per-card horizontal nudge (px) for games card top art. */
+const GAMES_CARD_TOP_OFFSET_X_PX = [-8, 0, 0, 0, 0, 0];
+
+/** Per-card vertical nudge (px) for games card top art. */
+const GAMES_CARD_TOP_OFFSET_Y_PX = [8, 32, 0, 0, 0, 0];
+
+export type CardStackVariant = "work" | "games";
+
+function getCardTopSvgs(variant: CardStackVariant) {
+  return variant === "games" ? GAMES_CARD_TOP_SVGS : WORK_CARD_TOP_SVGS;
+}
+
 interface IsometricStackProps {
+  variant?: CardStackVariant;
   selectedIndex: number;
   /** When set, only this card is shown (e.g. for mobile list). No stack effect. */
   singleCardIndex?: number;
@@ -297,14 +383,18 @@ interface IsometricStackProps {
 }
 
 export function IsometricStack({
+  variant = "work",
   selectedIndex,
   singleCardIndex,
   className = "",
   onSelectIndex,
 }: IsometricStackProps) {
+  const cardTopSvgs = getCardTopSvgs(variant);
   const totalCards = CARD_OFFSETS.length;
   const isSingleCardMode = singleCardIndex !== undefined;
   const indices = isSingleCardMode ? [singleCardIndex] : CARD_OFFSETS.map((_, i) => i);
+  const isWorkVariant = variant === "work";
+  const isGamesVariant = variant === "games";
 
   return (
     <div
@@ -314,7 +404,7 @@ export function IsometricStack({
         const isActive = isSingleCardMode || i === selectedIndex;
         const isAbove = !isSingleCardMode && i < selectedIndex;
         const state: CardState = isActive ? "active" : "inactive";
-        const svgSrc = CARD_TOP_SVGS[i];
+        const svgSrc = cardTopSvgs[i];
         const baseZ = totalCards - i;
 
         const cardOffset =
@@ -342,16 +432,40 @@ export function IsometricStack({
           >
             <CardBase state={state} />
             {svgSrc && (
-              <CardTopSvg src={svgSrc} visible={isActive} />
+              <CardTopSvg
+                src={svgSrc}
+                visible={isActive}
+                scale={isGamesVariant ? GAMES_CARD_TOP_SCALES[i] : 1}
+                offsetX={isGamesVariant ? GAMES_CARD_TOP_OFFSET_X_PX[i] : 0}
+                offsetY={isGamesVariant ? GAMES_CARD_TOP_OFFSET_Y_PX[i] : 0}
+              />
             )}
-            {i === 1 && (
+            {isWorkVariant && i === 1 && (
               <DiaBrowserTop
                 visible={isActive}
                 compact={isSingleCardMode}
                 scale={isSingleCardMode ? DIA_COMPACT_SCALE : DIA_DESKTOP_SCALE}
               />
             )}
-            {i === 3 && <NotionTop visible={isActive} />}
+            {isWorkVariant && i === 3 && <NotionTop visible={isActive} />}
+            {isGamesVariant && i === 3 && (
+              <IsometricCardTopImage
+                src="/images/top-laundromat.png"
+                visible={isActive}
+                scale={0.85}
+                offsetX={15}
+                offsetY={6}
+              />
+            )}
+            {isGamesVariant && i === 5 && (
+              <IsometricCardTopImage
+                src="/images/top-experiments.png"
+                visible={isActive}
+                scale={0.7}
+                offsetX={-15}
+                offsetY={2}
+              />
+            )}
           </div>
         );
       })}
