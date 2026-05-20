@@ -59,16 +59,19 @@ type PortfolioHomeProps = {
   cardStackVariant?: CardStackVariant;
   heroGreeting?: string;
   heroTagline?: string;
+  resumeHref?: string;
 };
 
 const DEFAULT_HERO_GREETING = "Hiya, I'm Cat";
 const DEFAULT_HERO_TAGLINE = "I design brand, web, and software";
+const DEFAULT_RESUME_HREF = "/design-resume.pdf";
 
 export function PortfolioHome({
   items,
   cardStackVariant = "work",
   heroGreeting = DEFAULT_HERO_GREETING,
   heroTagline = DEFAULT_HERO_TAGLINE,
+  resumeHref = DEFAULT_RESUME_HREF,
 }: PortfolioHomeProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
@@ -138,7 +141,7 @@ export function PortfolioHome({
                 Curius
               </a>
               <a
-                href="/design-resume.pdf"
+                href={resumeHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-nav capitalize transition-colors hover:opacity-80"
