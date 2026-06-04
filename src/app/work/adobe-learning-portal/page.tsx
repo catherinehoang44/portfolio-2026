@@ -409,20 +409,14 @@ export default function AdobeLearningPortalPage() {
                 </p>
               </div>
             </div>
-            <div className="flex-1 min-w-[320px] flex flex-col w-full" style={{ gap: ADOBE_CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
+            <div className="flex-1 min-w-[320px] flex flex-col w-full" style={{ gap: 8, padding: 16 }}>
               <div
-                className="case-media relative w-full overflow-hidden mx-auto"
-                style={{
-                  aspectRatio: "1024/326",
-                  minHeight: 200,
-                  background: "#FFFFFF",
-                  maxWidth: cssRasterWidthCap(1024),
-                }}
+                className="case-media relative w-full overflow-hidden"
+                style={{ aspectRatio: "514/420", minHeight: 200, background: "#FFFFFF" }}
               >
                 <CaseStudyMediaSlot
                   src={`${ADOBE_MEDIA_BASE}/scope-diagram.png`}
                   className="absolute inset-0 h-full w-full rounded-none"
-                  objectFit="contain"
                 />
               </div>
               <CaseStudyCaption

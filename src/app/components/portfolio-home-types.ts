@@ -20,7 +20,7 @@ export const WORK_PORTFOLIO_ITEMS: PortfolioWorkItem[] = [
   { title: "Adobe Learning Portal", tag: "Web Design", badge: null, slug: "adobe-learning-portal" },
   { title: "Dia Browser", tag: "Product Onboarding", badge: null, slug: "dia-browser" },
   { title: "Build Anything AI", tag: "Product Design", badge: null, slug: "build-anything-ai" },
-  { title: "Notion Mobile", tag: "Mobile Interactions", badge: "coming soon" },
+  { title: "Notion Mobile", tag: "Personal Project", badge: "coming soon" },
   { title: "Otherworld", tag: "Web Design", badge: null, slug: "otherworld" },
   {
     title: "Experiments",
