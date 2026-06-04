@@ -22,8 +22,18 @@ import {
 const NOTION_SCOPE_ITEMS = [
   { label: "Timeline", value: "4 days" },
   { label: "Team", value: "Solo → Personal project" },
-  { label: "Skills", value: "Mobile interaction design" },
+  { label: "Skills", value: "Mobile interaction design, vibe coding" },
 ];
+
+const NOTION_DEMO_SECTION_IDS = {
+  endpointSwipe: "endpoint-swipe-interactions",
+  tapDrag: "tap-drag-interactions",
+  leftPressSwipe: "left-press-swipe-interaction",
+} as const;
+
+function scrollToNotionSection(sectionId: string) {
+  document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 export default function NotionMobilePage() {
   return (
@@ -93,7 +103,7 @@ export default function NotionMobilePage() {
 
         {/* Reimagining Touch Interactions (Figma 179-2410) */}
         <section id="designs" className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="DIV" className="h-full" />
           </div>
           <div
@@ -147,7 +157,7 @@ export default function NotionMobilePage() {
                 className="text-case-body w-full max-w-full mt-2"
                 style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}
               >
-                I also wanted to make interactions easy to &quot;figure out&quot;. If the intended outcome didn&apos;t occur, would they be able to figure it out after 1 to 2 tries? It would depend on the type of user.
+                I also wanted to make interactions easy to &quot;figure out&quot;. If the intended outcome didn&apos;t occur, would they be able to figure it out after 1 to 2 tries?
               </p>
             </div>
           </div>
@@ -160,44 +170,101 @@ export default function NotionMobilePage() {
 
         {/* Demo: interaction list (Figma 113-3428) */}
         <section className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="DIV" className="h-full" />
           </div>
           <div
-            className="flex flex-col py-6 w-full md:flex-row md:items-start md:justify-between gap-6 md:gap-12"
+            className="relative z-10 flex flex-col py-6 w-full"
             style={{ marginLeft: CONTENT_OFFSET_LEFT_PX }}
           >
-            <div className="flex-1 min-w-[320px] w-full">
-              <p
-                className="font-mono w-full"
-                style={{ fontSize: CASE_SECTION_SUBHEADING_FONT_SIZE_PX, lineHeight: 1, color: COLORS.textMuted }}
+            <div className="w-full flex flex-col">
+              <h2
+                className="font-sans font-light w-full"
+                style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}
               >
                 Demo
-              </p>
-              <p className="text-case-body w-full max-w-full mt-2" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
+              </h2>
+              <p
+                className="font-mono w-full max-w-full mt-4"
+                style={{ fontSize: CASE_SECTION_SUBHEADING_FONT_SIZE_PX, lineHeight: 1, color: COLORS.textMuted }}
+              >
                 The following work was done:
               </p>
-              <ul className="list-none flex flex-col w-full max-w-full mt-4" style={{ gap: 12 }}>
-                <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
-                  <strong>End-Point Swipe Interactions:</strong> Swipe right/left at start of block for indentation; swipe right/left on characters to select characters.
-                </li>
-                <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
-                  <strong>Tap Drag Interactions:</strong> Double tap and drag to trigger move and drag; two finger tap and drag to move around document.
-                </li>
-                <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
-                  <strong>Left Press / Swipe Interaction:</strong> Press hold on left of block enables user to move block; swiping left on the right side of block reveal comment feature.
-                </li>
-                <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
-                  <strong>Non-Interactions:</strong> Common tools are to the left of the tool bar while advanced tools are to the right of the tool bar and may require swiping.
-                </li>
-              </ul>
-            </div>
-            <div className="flex-1 min-w-[320px] w-full flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
-              <div
-                className="case-media relative w-full overflow-hidden"
-                style={{ aspectRatio: "16/10", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
-              />
-              <CaseStudyCaption description="Demo overview" tag="Motion" />
+              <div className="flex flex-col w-full max-w-full mt-4" style={{ gap: 16 }}>
+                <div className="flex flex-col w-full" style={{ gap: 8 }}>
+                  <a
+                    href={`#${NOTION_DEMO_SECTION_IDS.endpointSwipe}`}
+                    className="text-case-body w-full cursor-pointer hover:underline"
+                    style={{ color: COLORS.accent, lineHeight: 1.6 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToNotionSection(NOTION_DEMO_SECTION_IDS.endpointSwipe);
+                    }}
+                  >
+                    End-Point Swipe Interactions ¶
+                  </a>
+                  <ul className="list-disc pl-5 flex flex-col w-full" style={{ gap: 8 }}>
+                    <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
+                      <strong>Swipe right/left</strong> at start of block for indentation
+                    </li>
+                    <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
+                      <strong>Swipe right/left</strong> on characters to select characters
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex flex-col w-full" style={{ gap: 8 }}>
+                  <a
+                    href={`#${NOTION_DEMO_SECTION_IDS.tapDrag}`}
+                    className="text-case-body w-full cursor-pointer hover:underline"
+                    style={{ color: COLORS.accent, lineHeight: 1.6 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToNotionSection(NOTION_DEMO_SECTION_IDS.tapDrag);
+                    }}
+                  >
+                    Tap Drag Interactions ¶
+                  </a>
+                  <ul className="list-disc pl-5 flex flex-col w-full" style={{ gap: 8 }}>
+                    <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
+                      <strong>Double tap and drag</strong> to trigger move and drag
+                    </li>
+                    <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
+                      <strong>Two finger tap and drag</strong> to move around document
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex flex-col w-full" style={{ gap: 8 }}>
+                  <a
+                    href={`#${NOTION_DEMO_SECTION_IDS.leftPressSwipe}`}
+                    className="text-case-body w-full cursor-pointer hover:underline"
+                    style={{ color: COLORS.accent, lineHeight: 1.6 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToNotionSection(NOTION_DEMO_SECTION_IDS.leftPressSwipe);
+                    }}
+                  >
+                    Left Press / Swipe Interaction ¶
+                  </a>
+                  <ul className="list-disc pl-5 flex flex-col w-full" style={{ gap: 8 }}>
+                    <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
+                      <strong>Press hold on left</strong> of block enables user to move block
+                    </li>
+                    <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
+                      <strong>Swiping left</strong> on the right side of block reveal comment feature
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex flex-col w-full" style={{ gap: 8 }}>
+                  <p className="text-case-body w-full" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
+                    Non-Interactions
+                  </p>
+                  <ul className="list-disc pl-5 flex flex-col w-full" style={{ gap: 8 }}>
+                    <li className="text-case-body" style={{ color: COLORS.textMutedStrong, lineHeight: 1.6 }}>
+                      Common tools are to the left of the tool bar while advanced tools are to the right of the tool bar and may require swiping
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -208,36 +275,40 @@ export default function NotionMobilePage() {
         </div>
 
         {/* End-Point Swipe Interactions (Figma 179-2311) */}
-        <section className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+        <section id={NOTION_DEMO_SECTION_IDS.endpointSwipe} className="relative overflow-visible w-full scroll-mt-24">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="DIV" className="h-full" />
           </div>
           <div
-            className="flex flex-col py-6 w-full md:flex-row md:items-start md:justify-between gap-6 md:gap-12"
-            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX }}
+            className="flex flex-col py-6 w-full"
+            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX, gap: CONTAINER_GAP_PX }}
           >
-            <div className="flex-1 min-w-[320px] w-full">
-              <h2
-                className="font-sans font-light w-full"
-                style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}
-              >
-                End-Point Swipe Interactions
-              </h2>
-            </div>
-            <div className="flex-1 min-w-[320px] w-full flex flex-col gap-6" style={{ ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
-              <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+            <p
+              className="font-mono w-full"
+              style={{ fontSize: CASE_SECTION_SUBHEADING_FONT_SIZE_PX, lineHeight: 1, color: COLORS.textMuted }}
+            >
+              End-Point Swipe Interactions
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 w-full" style={{ gap: CONTAINER_GAP_PX }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
+                <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
+                  Before
+                </p>
                 <div
                   className="case-media relative w-full overflow-hidden"
-                  style={{ aspectRatio: "16/10", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
+                  style={{ aspectRatio: "508/420", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
                 />
-                <CaseStudyCaption description="Before" tag="Motion" />
+                <CaseStudyCaption description="Swipe interactions" align="left" />
               </div>
-              <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
+                <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
+                  After
+                </p>
                 <div
                   className="case-media relative w-full overflow-hidden"
-                  style={{ aspectRatio: "16/10", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
+                  style={{ aspectRatio: "508/420", minHeight: 200, background: `${COLORS.accent}33` }}
                 />
-                <CaseStudyCaption description="After. Swipe interactions" tag="Motion" />
+                <CaseStudyCaption description="Swipe interactions" align="left" />
               </div>
             </div>
           </div>
@@ -249,36 +320,40 @@ export default function NotionMobilePage() {
         </div>
 
         {/* Tap Drag Interactions (Figma 179-2346) */}
-        <section className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+        <section id={NOTION_DEMO_SECTION_IDS.tapDrag} className="relative overflow-visible w-full scroll-mt-24">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="DIV" className="h-full" />
           </div>
           <div
-            className="flex flex-col py-6 w-full md:flex-row md:items-start md:justify-between gap-6 md:gap-12"
-            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX }}
+            className="flex flex-col py-6 w-full"
+            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX, gap: CONTAINER_GAP_PX }}
           >
-            <div className="flex-1 min-w-[320px] w-full">
-              <h2
-                className="font-sans font-light w-full"
-                style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}
-              >
-                Tap Drag Interactions
-              </h2>
-            </div>
-            <div className="flex-1 min-w-[320px] w-full flex flex-col gap-6" style={{ ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
-              <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+            <p
+              className="font-mono w-full"
+              style={{ fontSize: CASE_SECTION_SUBHEADING_FONT_SIZE_PX, lineHeight: 1, color: COLORS.textMuted }}
+            >
+              Tap Drag Interactions
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 w-full" style={{ gap: CONTAINER_GAP_PX }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
+                <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
+                  Before
+                </p>
                 <div
                   className="case-media relative w-full overflow-hidden"
-                  style={{ aspectRatio: "16/10", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
+                  style={{ aspectRatio: "508/420", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
                 />
-                <CaseStudyCaption description="Before" tag="Motion" />
+                <CaseStudyCaption description="Swipe interactions" align="left" />
               </div>
-              <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
+                <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
+                  After
+                </p>
                 <div
                   className="case-media relative w-full overflow-hidden"
-                  style={{ aspectRatio: "16/10", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
+                  style={{ aspectRatio: "508/420", minHeight: 200, background: `${COLORS.accent}33` }}
                 />
-                <CaseStudyCaption description="After. Swipe interactions" tag="Motion" />
+                <CaseStudyCaption description="Swipe interactions" align="left" />
               </div>
             </div>
           </div>
@@ -290,36 +365,40 @@ export default function NotionMobilePage() {
         </div>
 
         {/* Left Press / Swipe Interaction (Figma 179-2378) */}
-        <section className="relative overflow-visible w-full">
-          <div className="absolute inset-0">
+        <section id={NOTION_DEMO_SECTION_IDS.leftPressSwipe} className="relative overflow-visible w-full scroll-mt-24">
+          <div className="absolute inset-0 pointer-events-none">
             <MeasureGuide label="DIV" className="h-full" />
           </div>
           <div
-            className="flex flex-col py-6 w-full md:flex-row md:items-start md:justify-between gap-6 md:gap-12"
-            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX }}
+            className="flex flex-col py-6 w-full"
+            style={{ marginLeft: CONTENT_OFFSET_LEFT_PX, gap: CONTAINER_GAP_PX }}
           >
-            <div className="flex-1 min-w-[320px] w-full">
-              <h2
-                className="font-sans font-light w-full"
-                style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}
-              >
-                Left Press / Swipe Interaction
-              </h2>
-            </div>
-            <div className="flex-1 min-w-[320px] w-full flex flex-col gap-6" style={{ ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
-              <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+            <p
+              className="font-mono w-full"
+              style={{ fontSize: CASE_SECTION_SUBHEADING_FONT_SIZE_PX, lineHeight: 1, color: COLORS.textMuted }}
+            >
+              Left Press / Swipe Interaction
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 w-full" style={{ gap: CONTAINER_GAP_PX }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
+                <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
+                  Before
+                </p>
                 <div
                   className="case-media relative w-full overflow-hidden"
-                  style={{ aspectRatio: "16/10", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
+                  style={{ aspectRatio: "508/420", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
                 />
-                <CaseStudyCaption description="Before" tag="Motion" />
+                <CaseStudyCaption description="Swipe interactions" align="left" />
               </div>
-              <div className="flex flex-col" style={{ gap: CAPTION_MEDIA_GAP_PX }}>
+              <div className="flex flex-col min-w-0 w-full" style={{ gap: CAPTION_MEDIA_GAP_PX, ...CASE_MEDIA_ALIGN_WITH_TEXT_PADDING }}>
+                <p className="font-sans font-light w-full" style={{ color: COLORS.text, fontSize: SCOPE_HEADING_FONT_SIZE_PX }}>
+                  After
+                </p>
                 <div
                   className="case-media relative w-full overflow-hidden"
-                  style={{ aspectRatio: "16/10", minHeight: 200, background: CASE_MEDIA_PLACEHOLDER_FILL }}
+                  style={{ aspectRatio: "508/420", minHeight: 200, background: `${COLORS.accent}33` }}
                 />
-                <CaseStudyCaption description="After. Swipe interactions" tag="Motion" />
+                <CaseStudyCaption description="Swipe interactions" align="left" />
               </div>
             </div>
           </div>

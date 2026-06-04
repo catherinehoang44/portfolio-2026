@@ -44,17 +44,20 @@ function CaptionDescription({ description }: { description: string }) {
 export function CaseStudyCaption({
   description,
   tag,
+  align = "right",
 }: {
   description: string;
   tag?: "Video" | "Image" | string;
+  align?: "left" | "right";
 }) {
+  const isLeft = align === "left";
   return (
     <div
-      className="flex flex-wrap items-center justify-end gap-2 w-full h-fit"
+      className={`flex flex-wrap items-center gap-2 w-full h-fit ${isLeft ? "justify-start" : "justify-end"}`}
       style={{ paddingTop: 0 }}
     >
       <span
-        className="font-sans flex-1 min-w-0 text-right leading-none"
+        className={`font-sans flex-1 min-w-0 leading-none ${isLeft ? "text-left" : "text-right"}`}
         style={{ fontSize: CASE_CAPTION_FONT_SIZE_PX, lineHeight: CASE_CAPTION_LINE_HEIGHT, color: COLORS.textMuted }}
       >
         <CaptionDescription description={description} />
