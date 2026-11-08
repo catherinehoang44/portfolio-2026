@@ -3,7 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LiveClock, IsometricStack, type CardStackVariant } from "./CardStack";
+import {
+  LiveClock,
+  IsometricStack,
+  type CardStackVariant,
+  type ClockZone,
+} from "./CardStack";
 import { useTypewriterSingle } from "../hooks/useTypewriter";
 import { MeasureGuide } from "./MeasureGuide";
 import {
@@ -55,11 +60,15 @@ function TypedTag({ tag, visible }: { tag: string; visible: boolean }) {
 }
 
 type PortfolioHomeProps = {
-  items: PortfolioWorkItem[];
+  items?: PortfolioWorkItem[];
   cardStackVariant?: CardStackVariant;
   heroGreeting?: string;
   heroTagline?: string;
-  resumeHref?: string;
+  /** Pass null to hide the Resume nav link. */
+  resumeHref?: string | null;
+  clockZone?: ClockZone;
+  /** Replaces the work list (desktop stack + mobile cards) below the header. */
+  children?: React.ReactNode;
 };
 
 const DEFAULT_HERO_GREETING = "Hiya, I'm Cat";
@@ -67,11 +76,13 @@ const DEFAULT_HERO_TAGLINE = "I design brand, web, and software";
 const DEFAULT_RESUME_HREF = "/design-resume.pdf";
 
 export function PortfolioHome({
-  items,
+  items = [],
   cardStackVariant = "work",
   heroGreeting = DEFAULT_HERO_GREETING,
   heroTagline = DEFAULT_HERO_TAGLINE,
   resumeHref = DEFAULT_RESUME_HREF,
+  clockZone = "ET",
+  children,
 }: PortfolioHomeProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
@@ -113,7 +124,7 @@ export function PortfolioHome({
                 className="font-medium text-body"
                 style={{ color: COLORS.textMutedStrong }}
               >
-                <LiveClock />
+                <LiveClock zone={clockZone} />
               </p>
               <h1
                 className="font-display text-heading flex flex-col items-start gap-0"
@@ -140,15 +151,17 @@ export function PortfolioHome({
               >
                 Curius
               </a>
-              <a
-                href={resumeHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-nav capitalize transition-colors hover:opacity-80"
-                style={{ color: COLORS.nav }}
-              >
-                Resume
-              </a>
+              {resumeHref && (
+                <a
+                  href={resumeHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-nav capitalize transition-colors hover:opacity-80"
+                  style={{ color: COLORS.nav }}
+                >
+                  Resume
+                </a>
+              )}
               <a
                 href="mailto:catherinehoang44@gmail.com"
                 className="font-medium text-nav capitalize transition-colors hover:opacity-80"
@@ -168,6 +181,8 @@ export function PortfolioHome({
           <MeasureGuide label="GAP" className="h-full" />
         </div>
 
+        {children ?? (
+        <>
         {/* Desktop: stacked illustration + work list */}
         <section className="relative overflow-visible hidden lg:block">
           <div
@@ -340,6 +355,8 @@ export function PortfolioHome({
             );
           })}
         </div>
+        </>
+        )}
 
         {/* Measure: gap at end of work container */}
         <div

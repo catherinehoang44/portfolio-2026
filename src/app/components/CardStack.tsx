@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-export function LiveClock() {
+export type ClockZone = "ET" | "PT";
+
+const CLOCK_TIME_ZONES: Record<ClockZone, string> = {
+  ET: "America/New_York",
+  PT: "America/Los_Angeles",
+};
+
+export function LiveClock({ zone = "ET" }: { zone?: ClockZone }) {
   const [time, setTime] = useState("");
 
   useEffect(() => {
@@ -11,15 +18,15 @@ export function LiveClock() {
       const formatted = now.toLocaleTimeString("en-US", {
         hour: "numeric",
         minute: "2-digit",
-        timeZone: "America/New_York",
+        timeZone: CLOCK_TIME_ZONES[zone],
         hour12: true,
       });
-      setTime(`${formatted} ET`);
+      setTime(`${formatted} ${zone}`);
     };
     update();
     const interval = setInterval(update, 60000);
     return () => clearInterval(interval);
-  }, []);
+  }, [zone]);
 
   return <>{time}</>;
 }
